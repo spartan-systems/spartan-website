@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy | Spartan Systems</title>
+<meta name="description" content="How Spartan Systems collects, uses, and protects information on spartansystems.us and the Spartan platform.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:  #0d1b2a;
+    --blue:  #1e40af;
+    --blue2: #2563eb;
+    --white: #ffffff;
+    --off:   #f1f5f9;
+    --gray:  #94a3b8;
+    --dgray: #4b5563;
+    --text:  #111827;
+    --border:rgba(0,0,0,0.08);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--white);color:var(--text);font-family:'Inter',sans-serif;font-size:17px;line-height:1.75;}
+
+  nav{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:76px;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);}
+  .nav-logo img{height:48px;display:block;}
+  .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center;}
+  .nav-links a{color:var(--dgray);text-decoration:none;font-size:1rem;font-weight:500;}
+  .nav-links a:hover{color:var(--blue2);}
+  .btn-login{padding:0.55rem 1.2rem;border-radius:6px;font-weight:600;border:1.5px solid rgba(0,0,0,0.12);}
+
+  main{max-width:820px;margin:0 auto;padding:3.5rem 16px 5rem;}
+  h1{font-size:2.4rem;line-height:1.2;color:var(--navy);margin-bottom:0.5rem;}
+  .updated{color:var(--dgray);margin-bottom:2.5rem;}
+  h2{font-size:1.35rem;color:var(--navy);margin:2.5rem 0 0.75rem;scroll-margin-top:92px;}
+  h3{font-size:1.05rem;color:var(--navy);margin:1.5rem 0 0.4rem;}
+  p{margin-bottom:1rem;}
+  ul{margin:0 0 1rem 1.4rem;}
+  li{margin-bottom:0.4rem;}
+  a{color:var(--blue2);}
+  .note{background:var(--off);border-left:4px solid var(--blue2);padding:1rem 1.25rem;border-radius:6px;margin:1.25rem 0;}
+  .toc{background:var(--off);border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:2rem;}
+  .toc ol{margin:0.25rem 0 0 1.2rem;}
+  .toc li{margin-bottom:0.15rem;}
+
+  footer{background:#07111c;padding:2.5rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
+  footer img{height:34px;opacity:0.85;}
+  .footer-links{display:flex;gap:2rem;list-style:none;flex-wrap:wrap;}
+  .footer-links a{color:var(--gray);text-decoration:none;font-size:0.95rem;}
+  .footer-links a:hover{color:var(--white);}
+  .footer-copy{font-size:0.88rem;color:rgba(148,163,184,0.5);}
+
+  @media(max-width:640px){
+    h1{font-size:1.9rem;}
+    .nav-links .hide-sm{display:none;}
+    footer{flex-direction:column;text-align:center;}
+    .footer-links{justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo"><img src="/spartan_logo.png" alt="Spartan Systems"></a>
+  <ul class="nav-links">
+    <li class="hide-sm"><a href="/">Home</a></li>
+    <li><a href="https://data.spartansystems.us/login" class="btn-login">Log In</a></li>
+  </ul>
+</nav>
+
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Effective October 6, 2026</p>
+
+  <p>Spartan Systems ("Spartan," "we," "us") operates the website at spartansystems.us and the Spartan procurement intelligence platform at data.spartansystems.us (together, the "Service"). This policy explains what information we collect, how we use and share it, and the choices you have.</p>
+
+  <div class="toc">
+    <strong>Contents</strong>
+    <ol>
+      <li><a href="#collect">Information we collect</a></li>
+      <li><a href="#use">How we use information</a></li>
+      <li><a href="#share">How we share information</a></li>
+      <li><a href="#ai">AI chat</a></li>
+      <li><a href="#sms">Text messages</a></li>
+      <li><a href="#cookies">Cookies and similar technologies</a></li>
+      <li><a href="#public">Public government data</a></li>
+      <li><a href="#retention">Retention</a></li>
+      <li><a href="#choices">Your choices and rights</a></li>
+      <li><a href="#security">Security</a></li>
+      <li><a href="#other">Children, location, and changes</a></li>
+      <li><a href="#contact">Contact us</a></li>
+    </ol>
+  </div>
+
+  <h2 id="collect">1. Information we collect</h2>
+
+  <h3>Information you give us</h3>
+  <ul>
+    <li><strong>Account details:</strong> your name, email address, and password. Passwords are handled by our authentication provider, Amazon Web Services (AWS Cognito); we never see or store them.</li>
+    <li><strong>Company details:</strong> company name, CAGE code, description, and your role in the company.</li>
+    <li><strong>Phone number</strong> (optional), if you choose to verify it and receive SMS alerts, along with a record of when you gave consent.</li>
+    <li><strong>Settings and content:</strong> alert criteria (such as NSNs, part numbers, FSCs, CAGE codes, keywords, and set-aside types), notification preferences, feedback you submit, and questions you ask the AI chat.</li>
+    <li><strong>Payment details:</strong> subscriptions are processed by Stripe. We do not receive or store your full card number; we keep Stripe's customer and subscription identifiers and your subscription status.</li>
+    <li><strong>Messages</strong> you send us by email.</li>
+  </ul>
+
+  <h3>Information collected automatically</h3>
+  <ul>
+    <li><strong>Usage information:</strong> pages you visit, features you use, searches you run, buttons you click, how long you spend on a page, the site or link that referred you (including campaign tags in the link), your browser and device type, and approximate location derived from your IP address.</li>
+    <li><strong>Session recordings:</strong> recordings of how pages are used (scrolling, clicks, and page changes) so we can find and fix problems. Text you type into form fields is masked and not recorded.</li>
+    <li><strong>Server and API logs:</strong> IP addresses, request details, and errors, used to operate and secure the Service, plus usage records for API keys.</li>
+  </ul>
+
+  <h3>Information from other sources</h3>
+  <p>We may collect business contact information about companies that do business with the government (such as a company's name, CAGE code, and published contact details) from public sources, so that we can tell those businesses about the Service. You can opt out of these messages at any time.</p>
+
+  <h2 id="use">2. How we use information</h2>
+  <ul>
+    <li>Provide the Service: search, NSN and solicitation data, alerts, notifications, AI chat, and API access.</li>
+    <li>Create and manage accounts and subscriptions, and process payments.</li>
+    <li>Send the email and SMS alerts and digests you turn on, plus service messages such as receipts and security notices.</li>
+    <li>Understand how the Service is used so we can improve it, fix problems, and decide what to build.</li>
+    <li>Contact you about your account or subscription, including following up if you started but did not finish signing up or subscribing.</li>
+    <li>Protect the Service and its users, including preventing fraud and abuse.</li>
+    <li>Comply with legal obligations and enforce our terms.</li>
+  </ul>
+
+  <h2 id="share">3. How we share information</h2>
+  <p><strong>We do not sell your personal information, and we do not share it with third parties for their own advertising.</strong> We share information only as described here:</p>
+  <ul>
+    <li><strong>Service providers</strong> that process information on our behalf, under contracts that limit their use of it:
+      <ul>
+        <li>Amazon Web Services: sign-in and application hosting</li>
+        <li>Stripe: payment processing</li>
+        <li>Twilio: text messages and phone number verification</li>
+        <li>Email delivery providers: sending alert and account emails</li>
+        <li>PostHog: product analytics and session recordings</li>
+        <li>Third-party AI providers: generating answers in the AI chat (see <a href="#ai">AI chat</a>)</li>
+        <li>Hosting, networking, and font providers: delivering our websites</li>
+      </ul>
+    </li>
+    <li><strong>Your company:</strong> company owners and administrators can see the members of their company account.</li>
+    <li><strong>Legal reasons:</strong> when required by law or legal process, or to protect the rights, property, or safety of Spartan, our users, or others.</li>
+    <li><strong>Business transfers:</strong> as part of a merger, acquisition, financing, or sale of assets, in which case this policy continues to apply to your information.</li>
+    <li><strong>With your consent</strong> or at your direction.</li>
+  </ul>
+
+  <h2 id="ai">4. AI chat</h2>
+  <p>When you use the AI chat, your question and relevant data from our database are sent to third-party AI providers to generate an answer. Your conversations are saved with your account so you can return to them.</p>
+  <div class="note"><strong>Please do not enter</strong> confidential, proprietary, Controlled Unclassified Information (CUI), export-controlled (ITAR or EAR), or classified information into the AI chat. The chat is designed for questions about public procurement data.</div>
+
+  <h2 id="sms">5. Text messages</h2>
+  <p>If you turn on SMS alerts, we send automated text messages to the phone number you verify. Message frequency depends on the alerts you set up. Message and data rates may apply. Reply <strong>STOP</strong> to unsubscribe at any time, or turn SMS alerts off in your notification settings.</p>
+  <p>We do not share your mobile phone number or your SMS opt-in and consent information with third parties or affiliates for their marketing or promotional purposes. Our SMS provider receives your number only to deliver the messages you asked for.</p>
+
+  <h2 id="cookies">6. Cookies and similar technologies</h2>
+  <ul>
+    <li><strong>Essential:</strong> keep you signed in and remember your settings. The Service doesn't work without these.</li>
+    <li><strong>Analytics:</strong> PostHog uses cookies and browser storage to measure usage and to link visits from the same browser.</li>
+    <li><strong>Payments:</strong> Stripe sets cookies during checkout to process payments and prevent fraud.</li>
+  </ul>
+  <p>You can block or delete cookies in your browser settings. Blocking essential cookies will prevent you from signing in.</p>
+
+  <h2 id="public">7. Public government data</h2>
+  <p>Much of the Service displays public records published by government sources such as the Defense Logistics Agency, DIBBS, and FLIS. These include company names, CAGE codes, business addresses, and contract award details. That information comes from those public sources rather than from you. If you believe a public record is wrong, it should be corrected at its source; you are welcome to tell us as well, and we will review it.</p>
+
+  <h2 id="retention">8. Retention</h2>
+  <p>We keep account information for as long as your account is active, and afterwards only as long as needed for the purposes in this policy, such as meeting legal, tax, and accounting obligations, resolving disputes, and enforcing our agreements. Analytics data is generally kept for up to one year, and session recordings for a shorter period (currently about 30 days). Logs are kept for a limited time for security and troubleshooting.</p>
+
+  <h2 id="choices">9. Your choices and rights</h2>
+  <ul>
+    <li><strong>Access, correction, and deletion:</strong> you can update your profile and company details in Settings. To request a copy of your information or to have it deleted, email <a href="mailto:sales@spartansystems.us">sales@spartansystems.us</a>. We may need to verify your identity, and we may keep information we are legally required to keep.</li>
+    <li><strong>Email:</strong> turn alert and digest emails off in your notification settings, or use the unsubscribe link in marketing emails. We may still send essential account messages.</li>
+    <li><strong>SMS:</strong> reply STOP, or turn SMS alerts off in your notification settings.</li>
+  </ul>
+  <p>Depending on where you live, you may have additional rights under local law. We will respond to requests within a reasonable time and will not discriminate against you for exercising your rights.</p>
+
+  <h2 id="security">10. Security</h2>
+  <p>We use reasonable safeguards to protect information, including encryption in transit (HTTPS), managed authentication for passwords, hashing of API keys, and restricted access to our systems. No method of transmission or storage is completely secure, so we cannot guarantee absolute security.</p>
+
+  <h2 id="other">11. Children, location, and changes</h2>
+  <p><strong>Children:</strong> the Service is for businesses and is not directed to anyone under 18. We do not knowingly collect information from children.</p>
+  <p><strong>Location:</strong> we are based in the United States and store information in the United States. Some service providers may process information in other countries.</p>
+  <p><strong>Changes:</strong> we may update this policy. The effective date above shows when it last changed. If we make material changes, we will notify account holders by email or in the Service before the changes take effect.</p>
+
+  <h2 id="contact">12. Contact us</h2>
+  <p>Questions or requests about this policy or your information:<br>
+  Spartan Systems<br>
+  <a href="mailto:sales@spartansystems.us">sales@spartansystems.us</a></p>
+</main>
+
+<footer>
+  <img src="/spartan_logo.png" alt="Spartan Systems">
+  <ul class="footer-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="mailto:sales@spartansystems.us">Contact Us</a></li>
+    <li><a href="/privacy/">Privacy Policy</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Spartan Systems. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
