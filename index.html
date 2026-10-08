@@ -172,6 +172,13 @@
   .price-features li:last-child{border-bottom:none;}
   .price-features li::before{content:'✓';color:var(--blue2);font-weight:700;flex-shrink:0;font-size:1.1rem;}
   .price-note{font-size:0.9rem;color:var(--dgray);margin-top:1.2rem;}
+  .pricing-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:900px;margin:3.5rem auto 0;}
+  .plan-card{background:var(--white);border-radius:16px;padding:2.25rem 1.5rem;box-shadow:0 8px 40px rgba(0,0,0,0.06);border:1px solid var(--border);}
+  .plan-seats{font-size:0.85rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue2);margin-bottom:0.75rem;}
+  .plan-card .price-amount{font-size:3.5rem;}
+  .plan-card .price-amount sup{font-size:1.6rem;margin-top:0.6rem;}
+  .plan-card .price-period{margin-bottom:0.2rem;}
+  .plan-per-user{font-size:0.92rem;color:var(--dgray);}
 
   /* ── TESTIMONIALS ── */
   #testimonials{padding:7rem 6%;background:var(--white);}
@@ -212,6 +219,7 @@
     .how-steps::before{display:none;}
     .test-grid{grid-template-columns:1fr;}
     .pain-grid{grid-template-columns:1fr;}
+    .pricing-plans{grid-template-columns:1fr;max-width:420px;}
     .hero-stats{flex-direction:column;border-radius:12px;}
     .hero-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
     .hero-stat:last-child{border-bottom:none;}
@@ -248,7 +256,7 @@
     <a href="#features" class="btn-outline">See How It Works</a>
   </div>
   <div class="hero-stats">
-    <div class="hero-stat"><strong>$125</strong><span>Per month — up to 5 users</span></div>
+    <div class="hero-stat"><strong>From $45</strong><span>Per month — 1, 3 or 5 users</span></div>
     <div class="hero-stat"><strong>Updated Daily</strong><span>New solicitations every morning</span></div>
     <div class="hero-stat"><strong>Real-Time</strong><span>DoD award &amp; pricing data</span></div>
     <div class="hero-stat"><strong>Built for Defense</strong><span>Not a generic government tool</span></div>
@@ -484,7 +492,7 @@
         <tr><td>AI assistant to answer any question</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
         <tr><td>Recommended bid price before you submit</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
         <tr><td>Track items you've decided not to bid on</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
-        <tr><td>Up to 5 team members at no extra charge</td><td class="sc"><span class="chk">✓ $125/mo flat</span></td><td class="cc">Extra fee per user</td></tr>
+        <tr><td>Team plans for up to 5 people, every feature included</td><td class="sc"><span class="chk">✓ From $25/user</span></td><td class="cc">Extra fee per user</td></tr>
         <tr><td>Price locked in — never increases on renewal</td><td class="sc"><span class="chk">✓ Guaranteed</span></td><td class="cc">Annual price increases</td></tr>
       </tbody>
     </table>
@@ -525,13 +533,31 @@
 <section id="pricing">
   <div class="reveal">
     <div class="section-tag">Simple, Transparent Pricing</div>
-    <h2>One straightforward price. No surprises.</h2>
-    <p>No tiered plans. No per-user fees. Everything is included from day one.</p>
+    <h2>Every feature on every plan. Pick your team size.</h2>
+    <p>No feature tiers and no add-ons. Choose how many people need access, and upgrade anytime as your team grows.</p>
+  </div>
+  <div class="pricing-plans reveal">
+    <div class="plan-card">
+      <div class="plan-seats">1 user</div>
+      <div class="price-amount"><sup>$</sup>45</div>
+      <div class="price-period">per month</div>
+      <div class="plan-per-user">For one person</div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-seats">3 users</div>
+      <div class="price-amount"><sup>$</sup>75</div>
+      <div class="price-period">per month</div>
+      <div class="plan-per-user">$25 per user</div>
+    </div>
+    <div class="plan-card">
+      <div class="plan-seats">5 users</div>
+      <div class="price-amount"><sup>$</sup>125</div>
+      <div class="price-period">per month</div>
+      <div class="plan-per-user">$25 per user</div>
+    </div>
   </div>
   <div class="pricing-card reveal">
-    <div class="pricing-tag">Everything Included</div>
-    <div class="price-amount"><sup>$</sup>125</div>
-    <div class="price-period">per month &nbsp;·&nbsp; up to 5 users <span style="color:var(--dgray);font-size:0.88rem;">($25/user)</span></div>
+    <div class="pricing-tag">Every Plan Includes</div>
     <ul class="price-features">
       <li>Your personalized dashboard connected to your CAGE code</li>
       <li>Daily feed of new DoD solicitations with pricing history</li>
@@ -542,7 +568,6 @@
       <li>NSN lookup with full pricing and vendor trend charts</li>
       <li>No-bid tracking list so nothing falls through the cracks</li>
       <li>Custom email alerts for your keywords and target agencies</li>
-      <li>Up to 5 user accounts</li>
       <li>Email and phone support from our team</li>
       <li><strong>Price locked in for life — we never raise your rate</strong></li>
     </ul>
@@ -564,7 +589,7 @@
       <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:2rem;">
         <div style="font-size:2rem;margin-bottom:0.75rem;">🔒</div>
         <h3 style="color:var(--white);font-size:1.05rem;font-weight:700;margin-bottom:0.5rem;">Price Locked In</h3>
-        <p style="color:rgba(241,245,249,0.6);font-size:0.95rem;line-height:1.65;">Subscribe today at $125/month and that's your rate — one year from now, five years from now, always.</p>
+        <p style="color:rgba(241,245,249,0.6);font-size:0.95rem;line-height:1.65;">The rate you subscribe at is your rate — one year from now, five years from now, always.</p>
       </div>
       <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:2rem;">
         <div style="font-size:2rem;margin-bottom:0.75rem;">📈</div>
@@ -613,7 +638,7 @@
 <section id="cta">
   <div class="cta-glow"></div>
   <h2>Ready to start winning<br>more defense contracts?</h2>
-  <p>Sign up free today. No credit card, no commitment — an always-free tier is available, or upgrade to the full platform for $125 a month.</p>
+  <p>Sign up free today. No credit card, no commitment — an always-free tier is available, or upgrade to the full platform from $45 a month.</p>
   <div class="cta-actions">
     <a href="https://data.spartansystems.us/login" target="_blank" class="btn-white">Sign Up Now — It's Free</a>
     <a href="mailto:sales@spartansystems.us" class="btn-outline-white">Talk to Our Team First</a>
