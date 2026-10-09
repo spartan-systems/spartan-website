@@ -136,7 +136,7 @@
 
   /* ── COMPARE ── */
   #compare{padding:7rem 6%;background:var(--off);}
-  .compare-inner{max-width:900px;margin:0 auto;text-align:center;overflow-x:auto;}
+  .compare-inner{max-width:900px;margin:0 auto;text-align:center;}
   .lock-grid{grid-template-columns:repeat(3,1fr);}
   .compare-inner>p{color:var(--dgray);margin-bottom:3rem;font-size:1.1rem;}
   .compare-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 30px rgba(0,0,0,0.06);text-align:left;}
@@ -221,16 +221,17 @@
     .test-grid{grid-template-columns:1fr;}
     .pain-grid{grid-template-columns:1fr;}
     .pricing-plans{grid-template-columns:1fr;max-width:420px;}
-    .lock-grid{grid-template-columns:1fr;}
-  }
-  @media(max-width:600px){
-    .compare-table th,.compare-table td{padding:0.75rem 0.6rem;font-size:0.88rem;}
     .hero-stats{flex-direction:column;border-radius:12px;}
     .hero-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
     .hero-stat:last-child{border-bottom:none;}
     .ai-chat-feature{grid-template-columns:1fr;padding:2.5rem;gap:3rem;}
     footer{flex-direction:column;text-align:center;}
     .footer-links{justify-content:center;flex-wrap:wrap;}
+    .lock-grid{grid-template-columns:1fr;}
+  }
+  @media(max-width:600px){
+    .compare-inner{overflow-x:auto;}
+    .compare-table th,.compare-table td{padding:0.75rem 0.6rem;font-size:0.88rem;}
   }
 </style>
 </head>
