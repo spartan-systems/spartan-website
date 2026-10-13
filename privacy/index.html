@@ -62,6 +62,10 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied',
+    region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH']
+  });
   gtag('js', new Date());
 
   gtag('set', 'allow_ad_personalization_signals', false);
@@ -169,7 +173,7 @@
     <li><strong>Essential:</strong> keep you signed in and remember your settings. The Service doesn't work without these.</li>
     <li><strong>Analytics:</strong> PostHog uses cookies and browser storage to measure usage and to link visits from the same browser.</li>
     <li><strong>Payments:</strong> Stripe sets cookies during checkout to process payments and prevent fraud.</li>
-    <li><strong>Advertising measurement:</strong> our marketing website (spartansystems.us) uses Google Ads cookies to tell us when a visit came from one of our ads. We have turned off Google's use of this information to personalize ads.</li>
+    <li><strong>Advertising measurement:</strong> our marketing website (spartansystems.us) uses Google Ads cookies and reports each page visit to Google so we can tell which visits came from our ads. We have turned off Google's use of this information to personalize ads. These cookies are not set for visitors in the European Economic Area, the United Kingdom, or Switzerland.</li>
   </ul>
   <p>You can block or delete cookies in your browser settings. Blocking essential cookies will prevent you from signing in.</p>
 
