@@ -70,7 +70,7 @@
 
 <main>
   <h1>Privacy Policy</h1>
-  <p class="updated">Effective October 9, 2026</p>
+  <p class="updated">Effective October 13, 2026</p>
 
   <p>Spartan Systems ("Spartan," "we," "us") operates the website at spartansystems.us and the Spartan procurement intelligence platform at data.spartansystems.us (together, the "Service"). This policy explains what information we collect, how we use and share it, and the choices you have.</p>
 
@@ -100,6 +100,7 @@
     <li><strong>Company details:</strong> company name, CAGE code, description, and your role in the company.</li>
     <li><strong>Phone number</strong> (optional), if you choose to verify it and receive SMS alerts, along with a record of when you gave consent.</li>
     <li><strong>Settings and content:</strong> alert criteria (such as NSNs, part numbers, FSCs, CAGE codes, keywords, and set-aside types), notification preferences, feedback you submit, and questions you ask the AI chat.</li>
+    <li><strong>Inventory files:</strong> if your company imports its inventory, the CSV files you upload and the lines read from them, such as NSNs, part numbers, descriptions, quantities, condition codes, locations, unit costs, and CAGE codes, plus the column choices you make so the next file with the same headers is read the same way.</li>
     <li><strong>Payment details:</strong> subscriptions are processed by Stripe. We do not receive or store your full card number; we keep Stripe's customer and subscription identifiers and your subscription status.</li>
     <li><strong>Messages</strong> you send us by email.</li>
   </ul>
@@ -116,7 +117,7 @@
 
   <h2 id="use">2. How we use information</h2>
   <ul>
-    <li>Provide the Service: search, NSN and solicitation data, alerts, notifications, AI chat, and API access.</li>
+    <li>Provide the Service: search, NSN and solicitation data, matching your inventory to NSNs, alerts, notifications, AI chat, and API access.</li>
     <li>Create and manage accounts and subscriptions, and process payments.</li>
     <li>Send the email and SMS alerts and digests you turn on, plus service messages such as receipts and security notices.</li>
     <li>Understand how the Service is used so we can improve it, fix problems, and decide what to build.</li>
@@ -130,7 +131,7 @@
   <ul>
     <li><strong>Service providers</strong> that process information on our behalf, under contracts that limit their use of it:
       <ul>
-        <li>Amazon Web Services: sign-in and application hosting</li>
+        <li>Amazon Web Services: sign-in, application hosting, and storage of inventory files you upload</li>
         <li>Stripe: payment processing</li>
         <li>Twilio: text messages and phone number verification</li>
         <li>Email delivery providers: sending alert and account emails</li>
@@ -139,7 +140,7 @@
         <li>Hosting, networking, and font providers: delivering our websites</li>
       </ul>
     </li>
-    <li><strong>Your company:</strong> company owners and administrators can see the members of their company account.</li>
+    <li><strong>Your company:</strong> company owners and administrators can see the members of their company account. Members of a company account can see its inventory and import history, including the name of the member who ran each import.</li>
     <li><strong>Legal reasons:</strong> when required by law or legal process, or to protect the rights, property, or safety of Spartan, our users, or others.</li>
     <li><strong>Business transfers:</strong> as part of a merger, acquisition, financing, or sale of assets, in which case this policy continues to apply to your information.</li>
     <li><strong>With your consent</strong> or at your direction.</li>
@@ -166,6 +167,7 @@
 
   <h2 id="retention">8. Retention</h2>
   <p>We keep account information for as long as your account is active, and afterwards only as long as needed for the purposes in this policy, such as meeting legal, tax, and accounting obligations, resolving disputes, and enforcing our agreements. Analytics data is generally kept for up to one year, and session recordings for a shorter period (currently about 30 days). Logs are kept for a limited time for security and troubleshooting.</p>
+  <p>Inventory files you upload are deleted once their import finishes or is cancelled, or within about 6 hours if the import is never started. If an import fails unexpectedly, its file may be kept for a limited time so we can diagnose the problem. Problem reports listing rejected rows are kept for about 30 days. Inventory lines and saved column choices are kept until your company deletes them or closes its account.</p>
 
   <h2 id="choices">9. Your choices and rights</h2>
   <ul>
