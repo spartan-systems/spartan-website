@@ -248,6 +248,17 @@
   gtag('set', 'allow_ad_personalization_signals', false);
   gtag('config', 'AW-17734229904');
 </script>
+<!-- PostHog: same project as data.spartansystems.us, which reads this cookie, so one visitor ID runs from the ad to sign-up -->
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_so5z6RXAcjGS2kTRKLGTJLwKpjH8pQUSJA7NbRuaBzWq', {
+    api_host: 'https://us.i.posthog.com',
+    defaults: '2026-08-30',
+    person_profiles: 'identified_only',
+    capture_pageleave: true,
+    cross_subdomain_cookie: true,
+  });
+</script>
 </head>
 <body>
 
@@ -260,7 +271,7 @@
     <li><a href="#compare">How We Compare</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="https://data.spartansystems.us/login" target="_blank" class="btn-login">Log In</a></li>
-    <li><a href="https://data.spartansystems.us/login" target="_blank" class="btn-nav">Sign Up Free</a></li>
+    <li><a href="https://data.spartansystems.us/login?mode=signup" target="_blank" class="btn-nav">Sign Up Free</a></li>
   </ul>
 </nav>
 
@@ -272,7 +283,7 @@
   <h1>The Smarter Way to Find and Win <span>Defense Contracts</span></h1>
   <p class="hero-sub">Spartan Systems puts every DoD solicitation, award, and pricing record in one easy-to-use platform — so your team spends less time searching and more time winning.</p>
   <div class="hero-actions">
-    <a href="https://data.spartansystems.us/login" target="_blank" class="btn-primary">Sign Up Free — Always Free Tier Available</a>
+    <a href="https://data.spartansystems.us/login?mode=signup" target="_blank" class="btn-primary">Sign Up Free — Always Free Tier Available</a>
     <a href="#features" class="btn-outline">See How It Works</a>
   </div>
   <div class="hero-stats">
@@ -562,7 +573,7 @@
       <li>Email and phone support from our team</li>
       <li><strong>Price locked in for life — we never raise your rate</strong></li>
     </ul>
-    <a href="https://data.spartansystems.us/login" target="_blank" class="btn-primary" style="width:100%;text-align:center;display:block;font-size:1.1rem;padding:1.1rem;">Sign Up Now</a>
+    <a href="https://data.spartansystems.us/login?mode=signup" target="_blank" class="btn-primary" style="width:100%;text-align:center;display:block;font-size:1.1rem;padding:1.1rem;">Sign Up Now</a>
     <p class="price-note">Always free tier available &nbsp;·&nbsp; No credit card required &nbsp;·&nbsp; Cancel at any time</p>
   </div>
 </section>
@@ -626,7 +637,7 @@
   <h2>Ready to start winning<br>more defense contracts?</h2>
   <p>Sign up free today. No credit card, no commitment — an always-free tier is available, or upgrade to the full platform from $45 a month.</p>
   <div class="cta-actions">
-    <a href="https://data.spartansystems.us/login" target="_blank" class="btn-white">Sign Up Now — It's Free</a>
+    <a href="https://data.spartansystems.us/login?mode=signup" target="_blank" class="btn-white">Sign Up Now — It's Free</a>
     <a href="mailto:sales@spartansystems.us" class="btn-outline-white">Talk to Our Team First</a>
   </div>
 </section>
