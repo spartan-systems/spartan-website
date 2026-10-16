@@ -95,7 +95,7 @@
 
 <main>
   <h1>Privacy Policy</h1>
-  <p class="updated">Effective October 13, 2026</p>
+  <p class="updated">Effective October 16, 2026</p>
 
   <p>Spartan Systems ("Spartan," "we," "us") operates the website at spartansystems.us and the Spartan procurement intelligence platform at data.spartansystems.us (together, the "Service"). This policy explains what information we collect, how we use and share it, and the choices you have.</p>
 
@@ -124,7 +124,7 @@
     <li><strong>Account details:</strong> your name, email address, and password. We do not store passwords. Sign-in is handled by our authentication provider, Amazon Web Services (AWS Cognito), which does not keep passwords in readable form.</li>
     <li><strong>Company details:</strong> company name, CAGE code, description, and your role in the company.</li>
     <li><strong>Phone number</strong> (optional), if you choose to verify it and receive SMS alerts, along with a record of when you gave consent.</li>
-    <li><strong>Settings and content:</strong> alert criteria (such as NSNs, part numbers, FSCs, CAGE codes, keywords, and set-aside types), notification preferences, feedback you submit, and questions you ask the AI chat.</li>
+    <li><strong>Settings and content:</strong> alert criteria (such as NSNs, part numbers, FSCs, CAGE codes, keywords, and set-aside types), reorder watches (NSNs whose DLA stock you want to be told about), notification preferences, feedback you submit, and questions you ask the AI chat.</li>
     <li><strong>Inventory files:</strong> if your company imports its inventory, the CSV files you upload and the lines read from them, such as NSNs, part numbers, descriptions, quantities, condition codes, locations, unit costs, and CAGE codes, the column choices you make so the next file with the same headers is read the same way, and the problem reports we produce listing rows that were rejected or questionable. The result of each import, including the file name and any problem found, is sent to the member who ran it as an in-app notification, and by email if the import fails.</li>
     <li><strong>Payment details:</strong> subscriptions are processed by Stripe. We do not receive or store your full card number; we keep Stripe's customer and subscription identifiers and your subscription status.</li>
     <li><strong>Messages</strong> you send us by email.</li>
@@ -142,7 +142,7 @@
 
   <h2 id="use">2. How we use information</h2>
   <ul>
-    <li>Provide the Service: search, NSN and solicitation data, matching your inventory to NSNs, alerts, notifications, AI chat, and API access.</li>
+    <li>Provide the Service: search, NSN and solicitation data, matching your inventory to NSNs, alerts, notifications, AI chat (including answering questions about your own inventory, alerts, and settings), and API access.</li>
     <li>Create and manage accounts and subscriptions, and process payments.</li>
     <li>Send the email and SMS alerts and digests you turn on, plus service messages such as receipts and security notices.</li>
     <li>Understand how the Service is used so we can improve it, fix problems, and decide what to build.</li>
@@ -166,15 +166,28 @@
         <li>Hosting, networking, and font providers: delivering our websites</li>
       </ul>
     </li>
-    <li><strong>Your company:</strong> company owners and administrators can see the members of their company account. Members of a company account can see its inventory and import history, including the name of the member who ran each import.</li>
+    <li><strong>Your company:</strong> company owners and administrators can see the members of their company account. Members of a company account can see its inventory and import history, including the name of the member who ran each import. The AI chat answers each member from the company's inventory and import history and from that member's own alerts and settings, never another member's.</li>
     <li><strong>Legal reasons:</strong> when required by law or legal process, or to protect the rights, property, or safety of Spartan, our users, or others.</li>
     <li><strong>Business transfers:</strong> as part of a merger, acquisition, financing, or sale of assets, in which case this policy continues to apply to your information.</li>
     <li><strong>With your consent</strong> or at your direction.</li>
   </ul>
 
   <h2 id="ai">4. AI chat</h2>
-  <p>When you use the AI chat, your question and relevant data from our database are sent to third-party AI providers to generate an answer. Your conversations are saved with your account so you can return to them. Authorized Spartan Systems staff may review saved conversations to improve answers and fix problems.</p>
-  <div class="note"><strong>Please do not enter</strong> confidential, proprietary, Controlled Unclassified Information (CUI), export-controlled (ITAR or EAR), or classified information into the AI chat. The chat is designed for questions about public procurement data.</div>
+  <p>When you use the AI chat, your question and relevant data from our database are sent to third-party AI providers to generate an answer. That data is mostly public procurement data, but it can include some of your own account data, described below.</p>
+
+  <h3>Your own data</h3>
+  <p>So that you can ask about your own parts and settings, such as which of your parts are in open solicitations, the AI chat can read:</p>
+  <ul>
+    <li><strong>Inventory:</strong> your company's inventory lines (such as part numbers, NSNs, descriptions, quantities, condition codes, locations, and unit costs), how each line was matched to an NSN, open solicitations for the items you stock, and your company's import history.</li>
+    <li><strong>Alerts:</strong> your alert profiles, your reorder watches, and the alerts and notifications you have received in the Service.</li>
+    <li><strong>Profile:</strong> your name, your role in your company, your company's name and CAGE code, the CAGE code in your preferences, and which notifications you have turned on.</li>
+  </ul>
+  <p>It reads only your own company's inventory and only your own alerts and settings, never another member's alerts or settings or another company's inventory or account. This limit is enforced by our database for every question, not left to the AI. It never reads the email addresses or phone number on your account, or your payment details.</p>
+  <p>With each question, the AI provider also receives a short summary of your account, such as your company's name, how many inventory lines you have, and the names of your alert profiles. When a question is about your own data, the records the AI looks up to answer it are sent as well. We send your account data only to AI providers whose terms do not allow them to use it to train their models. Requests made with an API key never include your account data.</p>
+
+  <h3>Saved conversations</h3>
+  <p>Your conversations, including any of your own data that appears in the answers, are saved with your account so you can return to them. You can delete a conversation at any time. Authorized Spartan Systems staff may review saved conversations to improve answers and fix problems.</p>
+  <div class="note"><strong>Please do not enter</strong> Controlled Unclassified Information (CUI), export-controlled (ITAR or EAR), or classified information into the AI chat, or include it in inventory files you upload.</div>
 
   <h2 id="sms">5. Text messages</h2>
   <p>If you turn on SMS alerts, we send automated text messages to the phone number you verify. Message frequency depends on the alerts you set up. Message and data rates may apply. Reply <strong>STOP</strong> to unsubscribe at any time, or turn SMS alerts off in your notification settings.</p>
@@ -193,7 +206,7 @@
   <p>Much of the Service displays public records published by government sources such as the Defense Logistics Agency, DIBBS, and FLIS. These include company names, CAGE codes, business addresses, and contract award details. That information comes from those public sources rather than from you. If you believe a public record is wrong, it should be corrected at its source; you are welcome to tell us as well, and we will review it.</p>
 
   <h2 id="retention">8. Retention</h2>
-  <p>We keep account information for as long as your account is active, and afterwards only as long as needed for the purposes in this policy, such as meeting legal, tax, and accounting obligations, resolving disputes, and enforcing our agreements. Analytics data is generally kept for up to one year, and session recordings for a shorter period (currently about 30 days). Logs are kept for a limited time for security and troubleshooting.</p>
+  <p>We keep account information for as long as your account is active, and afterwards only as long as needed for the purposes in this policy, such as meeting legal, tax, and accounting obligations, resolving disputes, and enforcing our agreements. Saved AI chat conversations are kept until you delete them.Analytics data is generally kept for up to one year, and session recordings for a shorter period (currently about 30 days). Logs are kept for a limited time for security and troubleshooting.</p>
   <p>Inventory files you upload are deleted once their import finishes or is cancelled, or within about 6 hours if the import is never started. If an import fails unexpectedly, its file may be kept for a limited time so we can diagnose the problem. Problem reports are kept for about 30 days. Inventory lines are kept until your company deletes them in Settings. Your company's import history (file names, row counts, results, and who ran each import) and saved column choices are kept while your company account is active; to have them deleted, contact us as described in <a href="#choices">Your choices and rights</a>.</p>
 
   <h2 id="choices">9. Your choices and rights</h2>
