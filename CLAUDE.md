@@ -3,6 +3,7 @@
 Static marketing site (home page plus a privacy policy) served by GitHub Pages at **spartansystems.us** (apex domain via `CNAME` file). No build step, no framework, no dependencies.
 
 - `privacy/index.html` is the privacy policy (served at `/privacy/`), linked from the footer here and from the app. Keep it in step with what the product actually collects and which providers receive data.
+- `sms/index.html` is the SMS Alerts Terms (`/sms/`), the public opt-in proof for Twilio toll-free verification, linked from the app's consent box. Its consent text, confirmation and HELP replies must match the app's Notifications section and spartan-api's `SmsProgram`; the `sms/opt-in-*.png` screenshots show the app's opt-in steps.
 - Everything else lives in `index.html`: inline CSS (custom properties like `--navy`, `--blue2`), one inline script (IntersectionObserver reveal animations + screenshot tab switcher). External resources are Google Fonts (Inter), the Google Ads tag (`AW-17734229904`, in the `<head>` of both pages, ad personalization off; the policy's cookies section depends on that), and PostHog (same project and token as the app, `cross_subdomain_cookie` so data.spartansystems.us continues the visitor's ID; covered by the policy's PostHog lines).
 - All CTAs point to the product app: Log In to `https://data.spartansystems.us/login`, Sign Up to `/login?mode=signup` (opens Create Account); contact is `mailto:sales@spartansystems.us`.
 - The `screen_*.png` screenshots are of the `government-data` app and go stale when its UI changes.
