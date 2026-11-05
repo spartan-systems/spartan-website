@@ -70,7 +70,7 @@
   .browser-dot:nth-child(2){background:#febc2e;}
   .browser-dot:nth-child(3){background:#28c840;}
   .browser-url{flex:1;background:rgba(255,255,255,0.07);border-radius:4px;padding:0.3rem 0.85rem;font-size:0.82rem;color:var(--gray);margin-left:0.6rem;font-family:monospace;}
-  .browser-screenshot{width:100%;display:block;}
+  .browser-screenshot{width:100%;display:block;height:auto;}
 
   /* ── SECTION COMMONS ── */
   .section-tag{display:inline-block;font-size:0.8rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--blue2);margin-bottom:0.85rem;}
@@ -100,7 +100,7 @@
   .feature-bullets li{display:flex;align-items:flex-start;gap:0.75rem;font-size:1rem;color:var(--dgray);line-height:1.65;}
   .feature-bullets li::before{content:'';width:22px;height:22px;min-width:22px;border-radius:50%;background:var(--blue2);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='9' viewBox='0 0 11 9'%3E%3Cpath d='M1 4.5l3 3L10 1' stroke='white' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;margin-top:2px;}
   .feature-screen{border-radius:12px;overflow:hidden;box-shadow:0 24px 64px rgba(0,0,0,0.13),0 0 0 1px rgba(0,0,0,0.06);position:relative;}
-  .feature-screen img{width:100%;display:block;}
+  .feature-screen img{width:100%;display:block;height:auto;}
   .screen-label{position:absolute;bottom:14px;left:14px;background:var(--blue2);color:white;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.35rem 0.8rem;border-radius:5px;}
 
   /* ── AI CHAT ── */
@@ -113,6 +113,7 @@
   .chat-bubble{padding:1rem 1.25rem;border-radius:12px;font-size:1rem;line-height:1.65;}
   .chat-bubble.user{background:var(--blue2);color:white;border-radius:12px 12px 3px 12px;font-style:italic;}
   .chat-bubble.ai{background:rgba(255,255,255,0.08);color:rgba(241,245,249,0.85);border-radius:3px 12px 12px 12px;border-left:3px solid var(--blue3);}
+  .chat-note{font-size:0.85rem;color:rgba(241,245,249,0.4);margin-top:0.9rem;}
   .ai-chat-bullets h4{font-size:0.82rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(241,245,249,0.4);margin-bottom:1.4rem;}
   .ai-chat-bullets .feature-bullets li{color:rgba(241,245,249,0.7);}
   .ai-chat-cta{margin-top:2.5rem;padding:1.75rem;background:rgba(37,99,235,0.18);border:1px solid rgba(59,130,246,0.25);border-radius:12px;}
@@ -132,7 +133,7 @@
   .tab-screen{display:none;max-width:1040px;margin:0 auto;}
   .tab-screen.active{display:block;}
   .browser-wrap{background:#1e293b;border-radius:12px;border:1px solid rgba(255,255,255,0.08);overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,0.4);}
-  .tab-screen img{width:100%;display:block;}
+  .tab-screen img{width:100%;display:block;height:auto;}
 
   /* ── COMPARE ── */
   #compare{padding:7rem 6%;background:var(--off);}
@@ -302,7 +303,7 @@
       <div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div>
       <div class="browser-url">data.spartansystems.us — Your personalized dashboard</div>
     </div>
-    <img src="screen_dashboard.png" alt="Spartan Systems Dashboard" class="browser-screenshot">
+    <img src="screen_dashboard.webp" width="2000" height="1111" alt="Spartan Systems dashboard" class="browser-screenshot" fetchpriority="high">
   </div>
 </section>
 
@@ -344,17 +345,17 @@
   <div class="feature-row reveal">
     <div class="feature-text">
       <div class="section-tag">Your Personal Dashboard</div>
-      <h3>Log in and see only what's relevant to your business — instantly.</h3>
-      <p>Enter your company's CAGE code once, and Spartan automatically learns what you sell. From that moment on, every solicitation you see is matched to your specific products and capabilities — ranked from best fit to least fit, so your team always knows where to look first.</p>
+      <h3>Log in and see the bids worth your time — first thing.</h3>
+      <p>Enter your company's CAGE code once. Spartan finds every open DIBBS solicitation for parts you've won before and ranks them by value and by how often companies with your track record win lines like them, so your team knows where to start each morning.</p>
       <ul class="feature-bullets">
-        <li>Solicitations ranked by how well they match your business</li>
-        <li>Your full award history and revenue trends in one chart</li>
-        <li>Recent contract wins — dates, items, prices — at a glance</li>
-        <li>A live market overview showing open opportunities by set-aside type</li>
+        <li>Open solicitations for your past wins, scored by your chance of winning</li>
+        <li>Each score explained: how often you've won the NSN and who else has</li>
+        <li>Your award history and recent wins at a glance</li>
+        <li>The top 20 CAGE codes by award value over the last 12 months</li>
       </ul>
     </div>
     <div class="feature-screen">
-      <img src="screen_dashboard.png" alt="Your Personalized Dashboard">
+      <img src="screen_dashboard.webp" width="2000" height="1111" alt="Spartan dashboard ranking open DIBBS solicitations for a supplier's past wins">
       <span class="screen-label">Your Dashboard</span>
     </div>
   </div>
@@ -362,73 +363,149 @@
   <!-- Feature 2 -->
   <div class="feature-row rev reveal">
     <div class="feature-text">
-      <div class="section-tag">Daily Solicitations</div>
+      <div class="section-tag">Every DIBBS Solicitation</div>
       <h3>Every new DLA solicitation, within hours of posting.</h3>
-      <p>Every day, Spartan pulls the latest solicitations directly from DLA DIBBS and presents them in a clean, easy-to-read table. You can see the item name, quantity, pricing history, due date, delivery requirements, and set-aside type — all without opening a single government website.</p>
+      <p>Spartan pulls new solicitations from DLA DIBBS every 4 hours and puts them in one clean list. Search by NSN, FSC, NAICS code or keyword, filter by set-aside, and see the quantity, due date and last award price without opening a single government website.</p>
       <ul class="feature-bullets">
-        <li>Over 1,500 new solicitations added every day</li>
-        <li>Click any item to see what it sold for in the past</li>
-        <li>Filter by small business, veteran-owned, woman-owned, and more</li>
-        <li>Each NSN links directly to full pricing and vendor history</li>
+        <li>About 1,900 new solicitations every business day</li>
+        <li>Search by NSN, FSC, NAICS code, part number or keyword</li>
+        <li>Alerts by email, text or in the app when a match posts</li>
+        <li>DoD supply notices from SAM.gov, including sources sought and pre-solicitations</li>
       </ul>
     </div>
     <div class="feature-screen">
-      <img src="screen_solicitations.png" alt="Daily Solicitations Feed">
-      <span class="screen-label">Daily Solicitations</span>
+      <img src="screen_solicitations.webp" width="2000" height="1250" loading="lazy" alt="Open DIBBS solicitations filtered by NAICS code 332722">
+      <span class="screen-label">Solicitations</span>
     </div>
   </div>
 
   <!-- Feature 3 -->
   <div class="feature-row reveal">
     <div class="feature-text">
-      <div class="section-tag">Award &amp; Pricing History</div>
-      <h3>See exactly what the government paid — and who they paid it to.</h3>
-      <p>Before you submit a bid, you should know what the last award was worth, who won it, and what price they charged. Spartan gives you the full picture — years of award history, pricing trend charts, and a ranked list of every vendor who has ever sold that item to the government.</p>
+      <div class="section-tag">RFQ Requirements</div>
+      <h3>Know what the RFQ asks for before you spend an hour on the quote.</h3>
+      <p>Spartan reads the RFQ PDF for you and flags what can sink a bid, each with the RFQ text it came from. Every line, quantity and delivery date sits on one screen, with a countdown to the due date and one click to bid on DIBBS.</p>
       <ul class="feature-bullets">
-        <li>Complete award history with contract numbers and net prices</li>
-        <li>Price trend charts going back years, by vendor</li>
-        <li>See which companies are your main competitors on any item</li>
-        <li>30-day award rankings across all vendor CAGE codes</li>
+        <li>First article, QPL, export control, CMMC level and approved sources flagged</li>
+        <li>The RFQ documents and the TDMT technical data link in one place</li>
+        <li>Which past winners can still be awarded, checked against SAM.gov registrations</li>
+        <li>Your bid score on NSNs your company has won before</li>
       </ul>
     </div>
     <div class="feature-screen">
-      <img src="screen_awards.png" alt="Award and Pricing History">
-      <span class="screen-label">Award History</span>
+      <img src="screen_rfq.webp" width="1572" height="1096" loading="lazy" alt="RFQ requirements read from the RFQ PDF: first article, export-controlled data and CMMC level">
+      <span class="screen-label">RFQ Requirements</span>
+    </div>
+  </div>
+
+  <!-- Feature 4 -->
+  <div class="feature-row rev reveal">
+    <div class="feature-text">
+      <div class="section-tag">Award &amp; Pricing History</div>
+      <h3>See exactly what the government paid — and what price wins.</h3>
+      <p>Before you submit a bid, you should know what the last award was worth, who won it, and what they charged. Spartan shows every award on one chart and turns that history into a recommended price for the chance of winning you want.</p>
+      <ul class="feature-bullets">
+        <li>A recommended price at a 90%, 75%, 50% or 25% chance of winning</li>
+        <li>Every award with its contract number, quantity and unit price</li>
+        <li>Price history by vendor against DLA's fair-price line</li>
+        <li>How many companies compete for each NSN and which sources are approved</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <img src="screen_pricing.webp" width="2000" height="2594" loading="lazy" alt="Bid price recommendation and price history by vendor for an NSN">
+      <span class="screen-label">Pricing</span>
+    </div>
+  </div>
+
+  <!-- Feature 5 -->
+  <div class="feature-row reveal">
+    <div class="feature-text">
+      <div class="section-tag">Bid Board</div>
+      <h3>Track every quote from first look to award.</h3>
+      <p>Add lines from any solicitation to your team's bid board and move them through review, sourcing, ready and quoted. When the lines are ready, download one DIBBS quote file. Every day, DIBBS awards are checked against your lines, and each one closes with who won it and at what price.</p>
+      <ul class="feature-bullets">
+        <li>An owner, notes and your price on every line, with countdowns to DLA's 3:00 PM Eastern cutoff</li>
+        <li>One DIBBS batch quote file for every line that's ready</li>
+        <li>Supplier emails asking for price and lead time, drafted by AI from the RFQ</li>
+        <li>The award on every line, checked daily, with the winner's price, your price gap and your win rate by FSC</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <img src="screen_board.webp" width="2000" height="1023" loading="lazy" alt="Bid board with RFQ lines in review, sourcing, ready, quoted and closed">
+      <span class="screen-label">Bid Board</span>
+    </div>
+  </div>
+
+  <!-- Feature 6 -->
+  <div class="feature-row rev reveal">
+    <div class="feature-text">
+      <div class="section-tag">Competitor Intelligence</div>
+      <h3>Know who you're up against on every item.</h3>
+      <p>Look up any company by CAGE code and see where its government revenue comes from, who it competes with and where it overlaps with you. Follow the ones that matter and Spartan sends you their new DIBBS awards each day.</p>
+      <ul class="feature-bullets">
+        <li>Awards and value by year for any CAGE code</li>
+        <li>The supply classes and weapon systems their money comes from</li>
+        <li>Who they run into and the items you both win</li>
+        <li>Follow up to 25 CAGE codes and get a daily summary of their awards</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <img src="screen_competitor.webp" width="2000" height="1932" loading="lazy" alt="Competitor profile: awards by year, revenue by supply class and weapon systems">
+      <span class="screen-label">Competitors</span>
+    </div>
+  </div>
+
+  <!-- Feature 7 -->
+  <div class="feature-row reveal">
+    <div class="feature-text">
+      <div class="section-tag">Upcoming Solicitations</div>
+      <h3>See the buy coming before the solicitation posts.</h3>
+      <p>When DLA's stock of a part falls below its reorder point, a solicitation usually follows. Spartan reads DLA's monthly stock files and lists the NSNs that just crossed and the ones heading there. Over 11 monthly snapshots, 35% of the NSNs that had just crossed posted on DIBBS within 90 days, against 1.9% of other stocked NSNs.</p>
+      <ul class="feature-bullets">
+        <li>NSNs whose stock just fell below the reorder point, by FSC and weapon system</li>
+        <li>Reorder watch alerts on the NSNs you care about</li>
+        <li>DLA's stock, backorders and 24-month buy forecast for each NSN</li>
+        <li>Upload your inventory and see every open solicitation you can fill</li>
+      </ul>
+    </div>
+    <div class="feature-screen">
+      <img src="screen_upcoming.webp" width="2000" height="1250" loading="lazy" alt="Upcoming solicitations predicted from DLA stock below the reorder point">
+      <span class="screen-label">Upcoming</span>
     </div>
   </div>
 
   <!-- AI CHAT FEATURE -->
   <div class="ai-chat-feature reveal">
     <div class="ai-chat-text">
-      <div class="section-tag">AI Assistant</div>
-      <h3>Ask any question and get an expert answer in plain English — instantly.</h3>
-      <p>Spartan includes a built-in AI assistant that knows our DLA procurement data inside and out. Ask it anything — from basic questions about a part to detailed material specifications — and get a clear, sourced answer in seconds.</p>
-      <p>No more digging through government spec sheets. No more calling your procurement consultant for every small question. Just ask.</p>
-      <div class="chat-example-label">Real examples of what you can ask:</div>
+      <div class="section-tag">Leo, Your AI Assistant</div>
+      <h3>Ask any question and get an answer from the data in plain English.</h3>
+      <p>Leo is Spartan's built-in AI assistant. It answers from the same DLA award, solicitation and stock data you see in the app, plus your own inventory, alerts and bid board, and shows the query behind every answer.</p>
+      <p>No more digging through government spec sheets or building spreadsheets for every small question. Just ask.</p>
+      <div class="chat-example-label">Real questions, asked in Spartan on Nov 5, 2026:</div>
       <div class="chat-bubbles">
-        <div class="chat-bubble user">"What is NSN 5330-00-485-0788 made out of?"</div>
-        <div class="chat-bubble ai">This is a plain seal under FSC 5330 (packing and gasket materials). Based on its specification data, it is made from nitrile rubber — a synthetic material used in military hydraulic and fuel systems because of its resistance to petroleum-based fluids and extreme temperatures.</div>
-        <div class="chat-bubble user">"Are there any open solicitations right now for stainless steel parts?"</div>
-        <div class="chat-bubble ai">Yes — I found 14 open solicitations specifying stainless steel construction, including 3 sole-source opportunities in FSC 4730 with bids closing within the next 30 days. Want me to sort them by deadline or dollar value?</div>
-        <div class="chat-bubble user">"Who are the biggest vendors for titanium fasteners?"</div>
-        <div class="chat-bubble ai">Over the last 24 months, the top vendors for titanium fasteners in FSC 5306 are CAGE 66200 ($1.28M in awards), CAGE 3B558 ($659K), and CAGE 48T42 ($438K). The most recent award was in December 2024 at $12.40 per unit.</div>
+        <div class="chat-bubble user">"Who are the top vendors for titanium bolts and screws over the last 2 years, and what do they charge?"</div>
+        <div class="chat-bubble ai">CAGE 1HEN9 leads by a wide margin: 67 awards across 9 items, averaging $10.98 each, with prices from $3.35 to $29.29. Next come CAGE 2V484 with 9 awards at $6.60 on average and CAGE 01UA8 with 7 at $43.59.</div>
+        <div class="chat-bubble user">"Which open solicitations for socket head cap screws close in the next 7 days?"</div>
+        <div class="chat-bubble ai">There are 46 open lines across 45 solicitations closing in the next 7 days. 43 are unrestricted, two are Small Business set-asides and one is SDVOSB. The largest is SPE4A627T7844, which asks for 3,355 and 10,243 each on two lines.</div>
+        <div class="chat-bubble user">"What is NSN 5306-01-045-6594 made of, and what has DLA paid for it?"</div>
+        <div class="chat-bubble ai">It's recorded as steel. The latest award paid $8.50 each in October 2025, and prices have ranged from $3.19 to $10.66 across 12 awards. Small lots seem to carry a premium: 47 units went for $8.50, while 303 units a month earlier went for $5.86.</div>
       </div>
+      <p class="chat-note">Answers shortened for this page, with company names left as CAGE codes.</p>
     </div>
     <div class="ai-chat-bullets">
-      <h4>Things your team can ask the AI:</h4>
+      <h4>Things your team can ask Leo:</h4>
       <ul class="feature-bullets">
-        <li>What material or specification a specific NSN requires</li>
-        <li>Open solicitations filtered by material type or military spec</li>
-        <li>Which companies are the top vendors in any product category</li>
-        <li>What a fair price is for any part number before you bid</li>
-        <li>Which set-aside categories you qualify for on any contract</li>
-        <li>Historical delivery times and lead time data</li>
-        <li>How to cross-reference a part number to find the right NSN</li>
-        <li>Anything a 30-year procurement expert would know</li>
+        <li>Who the top vendors are for any item or category, and what they charge</li>
+        <li>Which open solicitations match an item, set-aside or closing date</li>
+        <li>What an NSN is made of and what DLA has paid for it</li>
+        <li>What to bid on this week, based on your company's awards</li>
+        <li>Which of your inventory lines are in open solicitations right now</li>
+        <li>What's due on your bid board and what's waiting on a supplier</li>
+        <li>Which FSC codes are trending this year</li>
       </ul>
       <div class="ai-chat-cta">
         <div class="ai-badge">Built-In AI Assistant</div>
-        <p>Your team asks questions the same way they'd ask a colleague — in plain English. No technical training needed. Answers come back in seconds.</p>
+        <p>Your team asks questions the same way they'd ask a colleague — in plain English. No technical training needed. Every answer shows how Leo got it.</p>
       </div>
     </div>
   </div>
@@ -444,32 +521,53 @@
   </div>
   <div class="tabs reveal">
     <button class="tab-btn active" onclick="showTab('t1',this)">Dashboard</button>
-    <button class="tab-btn" onclick="showTab('t2',this)">Daily Solicitations</button>
-    <button class="tab-btn" onclick="showTab('t4',this)">Award History</button>
-    <button class="tab-btn" onclick="showTab('t5',this)">Vendor Data</button>
+    <button class="tab-btn" onclick="showTab('t2',this)">Solicitations</button>
+    <button class="tab-btn" onclick="showTab('t3',this)">Bid Board</button>
+    <button class="tab-btn" onclick="showTab('t4',this)">Pricing</button>
+    <button class="tab-btn" onclick="showTab('t5',this)">Competitors</button>
+    <button class="tab-btn" onclick="showTab('t6',this)">Upcoming</button>
+    <button class="tab-btn" onclick="showTab('t7',this)">Leo AI</button>
   </div>
   <div id="t1" class="tab-screen active reveal">
     <div class="browser-wrap">
       <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Dashboard</div></div>
-      <img src="screen_dashboard.png" alt="Spartan Dashboard">
+      <img src="screen_dashboard.webp" width="2000" height="1111" alt="Spartan dashboard">
     </div>
   </div>
   <div id="t2" class="tab-screen">
     <div class="browser-wrap">
-      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Daily Solicitations</div></div>
-      <img src="screen_solicitations.png" alt="Daily Solicitations">
+      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Solicitations</div></div>
+      <img src="screen_solicitations.webp" width="2000" height="1250" loading="lazy" alt="Solicitations">
+    </div>
+  </div>
+  <div id="t3" class="tab-screen">
+    <div class="browser-wrap">
+      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Bid Board</div></div>
+      <img src="screen_board.webp" width="2000" height="1023" loading="lazy" alt="Bid board">
     </div>
   </div>
   <div id="t4" class="tab-screen">
     <div class="browser-wrap">
-      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Award History</div></div>
-      <img src="screen_awards.png" alt="Award History">
+      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Pricing &amp; Award History</div></div>
+      <img src="screen_pricing.webp" width="2000" height="2594" loading="lazy" alt="Pricing and award history">
     </div>
   </div>
   <div id="t5" class="tab-screen">
     <div class="browser-wrap">
-      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Vendor &amp; CAGE Data</div></div>
-      <img src="screen_cage.png" alt="Vendor Data">
+      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Competitor Profile</div></div>
+      <img src="screen_competitor.webp" width="2000" height="1932" loading="lazy" alt="Competitor profile">
+    </div>
+  </div>
+  <div id="t6" class="tab-screen">
+    <div class="browser-wrap">
+      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Upcoming Solicitations</div></div>
+      <img src="screen_upcoming.webp" width="2000" height="1250" loading="lazy" alt="Upcoming solicitations">
+    </div>
+  </div>
+  <div id="t7" class="tab-screen">
+    <div class="browser-wrap">
+      <div class="browser-bar"><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-dot"></div><div class="browser-url">data.spartansystems.us — Leo AI Chat</div></div>
+      <img src="screen_leo.webp" width="2000" height="1250" loading="lazy" alt="Leo answering what DLA has paid for an NSN">
     </div>
   </div>
 </section>
@@ -480,7 +578,7 @@
     <div class="reveal">
       <div class="section-tag">How We Compare</div>
       <h2>Why contractors choose Spartan over the competition</h2>
-      <p>Other providers are useful for basic NSN lookups. Spartan was designed from the ground up to help you find, price, and win defense contracts — and that's a very different thing.</p>
+      <p>Other providers are useful for basic NSN lookups. Spartan was designed from the ground up to help you find, price, quote and win DLA contracts — and that's a very different thing.</p>
     </div>
     <table class="compare-table reveal">
       <thead>
@@ -491,12 +589,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>Solicitations matched to your company automatically</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
-        <tr><td>New solicitations updated every day</td><td class="sc"><span class="chk">✓ Daily</span></td><td class="cc">Limited</td></tr>
+        <tr><td>New DIBBS solicitations every 4 hours</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc">Varies</td></tr>
         <tr><td>Full award history — who won and what they charged</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="chk">✓ Included</span></td></tr>
-        <tr><td>AI assistant to answer any question</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
-        <tr><td>Recommended bid price before you submit</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
-        <tr><td>See solicitations that got zero bids</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
+        <tr><td>Solicitations predicted from DLA stock below the reorder point</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
+        <tr><td>Your inventory matched to open solicitations</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
+        <tr><td>Weapon systems behind every NSN</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
+        <tr><td>Text alerts when a matching solicitation posts</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc"><span class="x">✗ Not available</span></td></tr>
+        <tr><td>Bid board with a DIBBS quote file and daily award checks</td><td class="sc"><span class="chk">✓ Included</span></td><td class="cc">Rare</td></tr>
         <tr><td>Price locked in — never increases on renewal</td><td class="sc"><span class="chk">✓ Guaranteed</span></td><td class="cc">Annual price increases</td></tr>
       </tbody>
     </table>
@@ -513,7 +612,7 @@
     <div class="how-step reveal">
       <div class="step-num">1</div>
       <h3>Create a free account</h3>
-      <p>Sign up in under a minute. No credit card needed. A free tier is always available — upgrade whenever you're ready.</p>
+      <p>Sign up with Google or email in under a minute. No credit card needed. A free tier is always available — upgrade whenever you're ready.</p>
     </div>
     <div class="how-step reveal">
       <div class="step-num">2</div>
@@ -523,12 +622,12 @@
     <div class="how-step reveal">
       <div class="step-num">3</div>
       <h3>See your opportunities</h3>
-      <p>Your dashboard fills instantly with solicitations matched to you, your award history, and live market data.</p>
+      <p>Your dashboard fills instantly with open solicitations for parts you've won, your award history, and live market data.</p>
     </div>
     <div class="how-step reveal">
       <div class="step-num">4</div>
       <h3>Start winning contracts</h3>
-      <p>Use the pricing data, recommended bid prices, and daily alerts to pursue the right work with confidence.</p>
+      <p>Price with recommended bids, quote from your bid board, and let Spartan check DIBBS for who won.</p>
     </div>
   </div>
 </section>
@@ -564,13 +663,17 @@
     <div class="pricing-tag">Every Plan Includes</div>
     <ul class="price-features">
       <li>Your personalized dashboard connected to your CAGE code</li>
-      <li>Daily feed of new DLA solicitations with pricing history</li>
+      <li>Every new DLA solicitation, refreshed every 4 hours, with pricing history</li>
       <li>Full award history — who won, what they charged, and when</li>
-      <li>AI-suggested bid price before every solicitation</li>
-      <li>Built-in AI assistant — ask any question, get an instant answer</li>
-      <li>NSN lookup with full pricing and vendor trend charts</li>
-      <li>No-bid tracking list so nothing falls through the cracks</li>
-      <li>Custom email alerts for your keywords and target agencies</li>
+      <li>A recommended bid price for the chance of winning you want</li>
+      <li>RFQ requirements read for you, with the RFQ documents</li>
+      <li>A bid board for your team, with a DIBBS quote file and daily award checks</li>
+      <li>Leo, the built-in AI assistant — ask any question in plain English</li>
+      <li>Competitor profiles, plus daily awards for the CAGE codes you follow</li>
+      <li>Upcoming solicitations, reorder watch and inventory matching</li>
+      <li>Alerts by email, text and in the app for your NSNs, FSCs, NAICS codes and keywords</li>
+      <li>DLA's no-bid list: solicitations nobody quoted</li>
+      <li>CSV export, batch part-number reports and API access</li>
       <li>Email and phone support from our team</li>
       <li><strong>Price locked in for life — we never raise your rate</strong></li>
     </ul>
