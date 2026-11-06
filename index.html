@@ -137,7 +137,7 @@
   /* ── COMPARE ── */
   #compare{padding:7rem 6%;background:var(--off);}
   .compare-inner{max-width:900px;margin:0 auto;text-align:center;}
-  .compare-inner>p{color:var(--dgray);margin-bottom:3rem;font-size:1.1rem;}
+  .compare-inner .reveal>p{color:var(--dgray);margin-bottom:3rem;font-size:1.1rem;}
   .compare-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:14px;overflow:hidden;box-shadow:0 4px 30px rgba(0,0,0,0.06);text-align:left;}
   .compare-table th{padding:1.3rem 1.75rem;font-size:1rem;font-weight:700;border-bottom:2px solid var(--off);}
   .compare-table th:first-child{color:var(--dgray);}
@@ -161,7 +161,7 @@
 
   /* ── PRICING ── */
   #pricing{padding:7rem 6%;background:var(--off);text-align:center;}
-  #pricing .reveal>p{color:var(--dgray);margin:0.6rem auto 0;font-size:1.1rem;max-width:720px;}
+  .pricing-intro{color:var(--dgray);margin:0.6rem auto 0;font-size:1.1rem;max-width:720px;}
   .pricing-card{max-width:520px;margin:3.5rem auto 0;background:var(--white);border-radius:16px;padding:3.5rem;box-shadow:0 8px 40px rgba(0,0,0,0.09);border:2px solid var(--blue2);position:relative;}
   .pricing-tag{position:absolute;top:-16px;left:50%;transform:translateX(-50%);background:var(--blue2);color:white;font-size:0.78rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.35rem 1.1rem;border-radius:100px;white-space:nowrap;}
   .price-amount{font-size:5rem;font-weight:700;color:var(--text);line-height:1;letter-spacing:-0.03em;}
@@ -280,7 +280,7 @@
   <div class="hero-glow"></div>
   <div class="hero-badge">Live DIBBS data</div>
   <h1>DLA procurement intelligence for <span>DIBBS suppliers</span></h1>
-  <p class="hero-sub">Open solicitations, award history and DLA stock positions for 17 million NSNs, scored against your CAGE code.</p>
+  <p class="hero-sub">Open DIBBS solicitations scored against your CAGE code, with award history and DLA stock positions for 17 million NSNs.</p>
   <div class="hero-actions">
     <a href="https://data.spartansystems.us/login?mode=signup" target="_blank" class="btn-primary">Create Account</a>
     <a href="#features" class="btn-outline">View the Platform</a>
@@ -496,7 +496,7 @@
         <div class="chat-bubble user">Which open solicitations for socket head cap screws close in the next 7 days?</div>
         <div class="chat-bubble ai">46 open lines across 45 solicitations. 43 are unrestricted, two are Small Business set-asides and one is SDVOSB. The largest is SPE4A627T7844, at 3,355 and 10,243 each on two lines.</div>
         <div class="chat-bubble user">What is NSN 5306-01-045-6594 made of, and what has DLA paid for it?</div>
-        <div class="chat-bubble ai">Steel. The latest award paid $8.50 each in October 2025, and prices have ranged from $3.19 to $10.66 across 12 awards. Small lots carry a premium: 47 units at $8.50 against 303 units at $5.86 a month earlier.</div>
+        <div class="chat-bubble ai">Steel. The latest award paid $8.50 each in October 2025, and prices have ranged from $3.19 to $10.66 across 12 awards. Small lots seem to carry a premium: 47 units at $8.50 against 303 units at $5.86 a month earlier.</div>
       </div>
       <p class="chat-note">Answers shortened. Company names shown as CAGE codes.</p>
     </div>
@@ -645,7 +645,7 @@
   <div class="reveal">
     <div class="section-tag">Pricing</div>
     <h2>Every feature on every plan.</h2>
-    <p>Plans differ only by seat count. New accounts get a <span class="nowrap">7-day</span> trial of any plan with no card required, and a free tier is available. Your rate is locked for as long as you subscribe.</p>
+    <p class="pricing-intro">Plans differ only by seat count. New accounts get a <span class="nowrap">7-day</span> trial of any plan with no card required, and a free tier is available. Your rate is locked for as long as you subscribe.</p>
   </div>
   <div class="pricing-plans reveal">
     <div class="plan-card">
