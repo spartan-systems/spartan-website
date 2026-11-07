@@ -105,7 +105,7 @@
       <li><a href="#collect">Information we collect</a></li>
       <li><a href="#use">How we use information</a></li>
       <li><a href="#share">How we share information</a></li>
-      <li><a href="#ai">AI chat and AI search</a></li>
+      <li><a href="#ai">AI chat, AI search and what you sell</a></li>
       <li><a href="#sms">Text messages</a></li>
       <li><a href="#cookies">Cookies and similar technologies</a></li>
       <li><a href="#public">Public records and company contacts</a></li>
@@ -122,7 +122,7 @@
   <h3>Information you give us</h3>
   <ul>
     <li><strong>Account details:</strong> your name, email address, and password, unless you sign in with Google. We do not store passwords. Sign-in is handled by our authentication provider, Amazon Web Services (AWS Cognito), which does not keep passwords in readable form.</li>
-    <li><strong>Company details:</strong> company name, CAGE code, description, and your role in the company.</li>
+    <li><strong>Company details:</strong> company name, CAGE code, what your company sells, the catalog item names matched to it, the SBA certifications your company reports holding, and your role in the company.</li>
     <li><strong>Phone number</strong> (optional), if you choose to verify it and receive SMS alerts, along with a record of when you gave consent.</li>
     <li><strong>Settings and content:</strong> alert criteria (such as NSNs, part numbers, FSCs, CAGE codes, keywords, and set-aside types), reorder watches (NSNs whose DLA stock you want to be told about), notification preferences, feedback you submit, and questions you ask the AI chat.</li>
     <li><strong>Inventory files:</strong> if your company imports its inventory, the CSV files you upload and the lines read from them, such as NSNs, part numbers, descriptions, quantities, condition codes, locations, unit costs, and CAGE codes, the column choices you make so the next file with the same headers is read the same way, and the problem reports we produce listing rows that were rejected or questionable. The result of each import, including the file name and any problem found, is sent to the member who ran it as an in-app notification, and by email if the import fails.</li>
@@ -163,7 +163,7 @@
         <li>Email delivery providers: sending alert and account emails</li>
         <li>PostHog: product analytics and session recordings</li>
         <li>Google: sign-in with Google, if you choose it, and measuring which of our ads bring visitors to our marketing website</li>
-        <li>Third-party AI providers: generating answers in the AI chat and turning AI searches into search filters (see <a href="#ai">AI chat and AI search</a>)</li>
+        <li>Third-party AI providers: generating answers in the AI chat, turning AI searches into search filters, and matching what your company sells to catalog item names (see <a href="#ai">AI chat, AI search and what you sell</a>)</li>
         <li>Hosting, networking, and font providers: delivering our websites</li>
       </ul>
     </li>
@@ -173,7 +173,7 @@
     <li><strong>With your consent</strong> or at your direction.</li>
   </ul>
 
-  <h2 id="ai">4. AI chat and AI search</h2>
+  <h2 id="ai">4. AI chat, AI search and what you sell</h2>
   <p>When you use the AI chat, your question and relevant data from our database are sent to third-party AI providers to generate an answer. That data is mostly public procurement data, but it can include some of your own account data, described below.</p>
 
   <h3>Your own data</h3>
@@ -190,7 +190,9 @@
   <p>Your conversations, including any of your own data that appears in the answers, are saved with your account so you can return to them. You can delete a conversation at any time. Authorized Spartan Systems staff may review saved conversations to improve answers and fix problems.</p>
   <h3>AI search</h3>
   <p>When you describe what you are looking for in plain English on the Search page, the text you type is sent to a third-party AI provider, together with the list of Federal Supply Classes, to turn it into search filters. No account data is sent with it, and the text is not saved with your account. We count how many AI searches you run each day to apply your plan's limit.</p>
-  <div class="note"><strong>Please do not enter</strong> Controlled Unclassified Information (CUI), export-controlled (ITAR or EAR), or classified information into the AI chat or AI search, or include it in inventory files you upload.</div>
+  <h3>What you sell</h3>
+  <p>When a company owner or administrator saves what the company sells in Settings, that text is sent to a third-party AI provider to match it to DLA catalog item names. No other account data is sent with it, and it goes only to AI providers whose terms do not allow them to use it to train their models. The text and the matched item names are saved with your company account and used to recommend solicitations. We count how many times you save it each day to apply a daily limit.</p>
+  <div class="note"><strong>Please do not enter</strong> Controlled Unclassified Information (CUI), export-controlled (ITAR or EAR), or classified information into the AI chat, AI search or what your company sells, or include it in inventory files you upload.</div>
 
   <h2 id="sms">5. Text messages</h2>
   <p>If you turn on SMS alerts, we send automated text messages to the phone number you verify. Message frequency depends on the alerts you set up. Message and data rates may apply. Reply <strong>HELP</strong> for help or <strong>STOP</strong> to unsubscribe at any time, or turn SMS alerts off in your notification settings. The <a href="/sms/">SMS Alerts Terms</a> explain what we send and how to sign up.</p>
