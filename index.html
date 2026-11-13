@@ -399,7 +399,7 @@
       <p class="hero-note">No card required. A free tier is always available.</p>
       <form class="hero-search" action="https://data.spartansystems.us/search" method="get" target="_blank">
         <label for="hero-nsn">Search an NSN</label>
-        <input id="hero-nsn" name="nsn" type="text" autocomplete="off" placeholder="5306-01-045-6594" required>
+        <input id="hero-nsn" name="niin" type="text" autocomplete="off" placeholder="5306-01-045-6594" required>
         <button type="submit" data-ph-capture-attribute-placement="hero_search">Search</button>
       </form>
     </div>
@@ -915,6 +915,14 @@
     }),{threshold:0.35});
     clips.forEach(v=>io.observe(v));
   })();
+
+  // The search's NIIN filter takes 9 digits, so a 13-digit NSN is cut to its NIIN.
+  document.querySelector('.hero-search').addEventListener('submit',e=>{
+    const input=e.target.querySelector('input');
+    const digits=input.value.replace(/[^0-9A-Za-z]/g,'');
+    if(/^[0-9]{13}$/.test(digits)) input.value=digits.slice(4);
+    else if(/^[0-9]{9}$/.test(digits)) input.value=digits;
+  });
 
   // Counts come from the API. If the call fails, the static text stays.
   (function(){
