@@ -911,7 +911,7 @@
     const clips=document.querySelectorAll('video.clip');
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){ clips.forEach(v=>v.controls=true); return; }
     const io=new IntersectionObserver(es=>es.forEach(e=>{
-      if(e.isIntersecting){ const p=e.target.play(); if(p) p.catch(()=>{ e.target.controls=true; }); }
+      if(e.isIntersecting){ const p=e.target.play(); if(p) p.catch(err=>{ if(err&&err.name==='NotAllowedError') e.target.controls=true; }); }
       else e.target.pause();
     }),{threshold:0.35});
     clips.forEach(v=>io.observe(v));
