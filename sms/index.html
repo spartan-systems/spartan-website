@@ -46,7 +46,7 @@
   figure{margin:1.25rem 0 1.75rem;}
   figure img{width:100%;height:auto;border:1px solid var(--border);border-radius:8px;display:block;}
   figcaption{font-size:0.92rem;color:var(--dgray);margin-top:0.5rem;}
-  .sms{font-family:ui-monospace,Menlo,monospace;font-size:0.95rem;background:var(--off);padding:0.75rem 1rem;border-radius:6px;display:block;margin:0.5rem 0 1rem;}
+  .sms{font-family:ui-monospace,Menlo,monospace;font-size:0.95rem;background:var(--off);padding:0.75rem 1rem;border-radius:6px;display:block;margin:0.5rem 0 1rem;overflow-wrap:anywhere;}
 
   footer{background:#07111c;padding:2.5rem 6%;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;}
   footer img{height:34px;opacity:0.85;}
@@ -100,7 +100,7 @@
 
 <main>
   <h1>SMS Alerts Terms</h1>
-  <p class="updated">Effective October 19, 2026</p>
+  <p class="updated">Effective November 13, 2026</p>
 
   <p>Spartan Systems ("Spartan," "we," "us") offers optional text-message alerts to people who use the Spartan procurement intelligence platform at data.spartansystems.us. This page explains what we send, how you sign up, and how to get help or stop.</p>
 
@@ -120,11 +120,13 @@
   <h2 id="program">1. What you get</h2>
   <p><strong>Spartan Systems alerts</strong> are automated text messages about your own account:</p>
   <ul>
-    <li>new Defense Logistics Agency (DLA) solicitations that match the alert criteria you save in Spartan, and</li>
-    <li>reorder alerts for inventory items you watch.</li>
+    <li>new Defense Logistics Agency (DLA) solicitations and SAM.gov contract notices that match the alert criteria you save in Spartan,</li>
+    <li>reorder alerts for inventory items you watch, and</li>
+    <li>a daily summary of the DLA contract awards made to companies (CAGE codes) you follow.</li>
   </ul>
-  <p>We don't send marketing or promotional texts. <strong>Message frequency varies</strong> with the alerts you set up. A typical alert reads:</p>
-  <span class="sms">Spartan alert: 3 new solicitations match "Hydraulic fittings". BOLT, MACHINE - Sol# SPE4A524R0001, Qty: 500</span>
+  <p>We don't send marketing or promotional texts. <strong>Message frequency varies</strong> with the alerts you set up. Typical alerts read:</p>
+  <span class="sms">Spartan alert: 3 new solicitations match "Hydraulic fittings". BOLT, MACHINE - Sol# SPE4A524R0001, Qty: 500. data.spartansystems.us/n/12345</span>
+  <span class="sms">Spartan alert: ACME SEALS INC (1ABC2) won 3 awards. O-RING, 500 EA at $1.20 and 2 more. data.spartansystems.us/n/12346</span>
 
   <h2 id="opt-in">2. How to sign up</h2>
   <p>Text alerts are off for every account until its user turns them on. Signing up takes three steps in the Spartan app. (Personal details are hidden in these screenshots.)</p>
@@ -147,7 +149,7 @@
   <p>Open <strong>Settings → Notifications</strong>. Next to an unticked box, the page shows:</p>
   <div class="consent">
     <p><strong>Text me Spartan Systems alerts at (your number).</strong></p>
-    <p style="margin-bottom:0">I agree to receive automated text messages from Spartan Systems about new DLA solicitations that match my saved alerts and reorder alerts for items I watch. Message frequency varies with the alerts I set up. Message and data rates may apply. Reply HELP for help or STOP to cancel at any time. Consent is not a condition of using Spartan. <a href="/sms/">SMS Terms</a> · <a href="/privacy/">Privacy Policy</a></p>
+    <p style="margin-bottom:0">I agree to receive automated text messages from Spartan Systems about new DLA solicitations and SAM.gov notices that match my saved alerts, reorder alerts for items I watch, and DLA awards to CAGEs I follow. Message frequency varies with the alerts I set up. Message and data rates may apply. Reply HELP for help or STOP to cancel at any time. Consent is not a condition of using Spartan. <a href="/sms/">SMS Terms</a> · <a href="/privacy/">Privacy Policy</a></p>
   </div>
   <p>Tick the box and select <strong>Save</strong>. The box is never ticked for you, and you can use every part of Spartan without it. We record when you agreed.</p>
   <figure>
@@ -163,7 +165,7 @@
 
   <h2 id="help">4. Help</h2>
   <p>Reply <strong>HELP</strong> to any message and we'll answer with:</p>
-  <span class="sms">Spartan Systems: DLA solicitation and reorder alerts. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel. Help: sales@spartansystems.us</span>
+  <span class="sms">Spartan Systems: solicitation, reorder and award alerts. Msg frequency varies. Msg &amp; data rates may apply. Reply STOP to cancel. Help: sales@spartansystems.us</span>
   <p>You can also email <a href="mailto:sales@spartansystems.us">sales@spartansystems.us</a>.</p>
 
   <h2 id="costs">5. Costs and delivery</h2>
