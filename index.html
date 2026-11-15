@@ -230,10 +230,13 @@
   .expand-badge{position:absolute;right:12px;bottom:12px;display:flex;align-items:center;gap:0;height:38px;padding:0 10px;border-radius:8px;background:rgba(13,27,42,0.8);color:var(--white);box-shadow:0 4px 14px rgba(0,0,0,0.25);transition:background 0.2s,gap 0.2s;}
   .expand-badge svg{display:block;flex:none;}
   .expand-text{max-width:0;overflow:hidden;white-space:nowrap;font:600 0.85rem/1 'Inter',sans-serif;transition:max-width 0.2s;}
-  .expand:hover .expand-badge,.expand:focus-visible .expand-badge{background:var(--blue2);gap:0.45rem;}
-  .expand:hover .expand-text,.expand:focus-visible .expand-text{max-width:5rem;}
-  html.viewer-open{overflow:hidden;}
-  #viewer{border:0;margin:0;width:100%;max-width:100%;height:100%;max-height:100%;background:transparent;color:var(--white);padding:calc(3.75rem + env(safe-area-inset-top,0px)) max(16px,4vw) calc(1.25rem + env(safe-area-inset-bottom,0px));}
+  .expand:focus-visible .expand-badge{background:var(--blue2);}
+  @media(hover:hover){
+    .expand:hover .expand-badge{background:var(--blue2);gap:0.45rem;}
+    .expand:hover .expand-text{max-width:5rem;}
+  }
+  html.viewer-open,html.viewer-open body{overflow:hidden;}
+  #viewer{overscroll-behavior:contain;border:0;margin:0;width:100%;max-width:100%;height:100%;max-height:100%;background:transparent;color:var(--white);padding:calc(3.75rem + env(safe-area-inset-top,0px)) max(16px,4vw) calc(1.25rem + env(safe-area-inset-bottom,0px));}
   #viewer::backdrop{background:rgba(7,17,28,0.94);}
   #viewer[open]{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.9rem;}
   .viewer-stage{display:flex;align-items:center;justify-content:center;min-height:0;max-width:min(1400px,100%);}
@@ -652,7 +655,7 @@
         <p class="chat-note">Answers shortened. Company names shown as CAGE codes.</p>
       </div>
       <div class="ai-chat-bullets">
-        <div class="ai-clip" data-expand="leo"><video class="clip" muted loop playsinline preload="none" poster="clip_leo.webp" width="960" height="986" aria-label="Leo answering which open solicitations for hex head cap screws close in the next 7 days"><source src="clip_leo.mp4" type="video/mp4"></video></div>
+        <div class="ai-clip" data-expand="leo"><video class="clip" muted loop playsinline preload="none" poster="clip_leo.webp" width="960" height="986" aria-label="Leo answering which open solicitations for hex head cap screws close in the next 7 days"><source src="clip_leo.mp4" type="video/mp4"></video><span class="clip-chip">Screen recording</span></div>
         <h4>Example questions</h4>
         <ul class="feature-bullets">
           <li>Top vendors and prices for an item or category</li>
@@ -862,6 +865,7 @@
     const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const icon='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>';
     let opener=null, resume=null;
+    if(typeof dlg.showModal!=='function') return;
     document.querySelectorAll('[data-expand]').forEach(box=>{
       const media=box.querySelector('img,video');
       const label=media.getAttribute('alt')||media.getAttribute('aria-label')||'';
@@ -872,6 +876,7 @@
       b.setAttribute('data-ph-capture-attribute-expand',box.dataset.expand);
       b.innerHTML='<span class="expand-badge">'+icon+'<span class="expand-text">Expand</span></span>';
       b.addEventListener('click',()=>show(media,label,b));
+      media.setAttribute('aria-hidden','true');
       box.appendChild(b);
     });
     function show(media,label,b){
