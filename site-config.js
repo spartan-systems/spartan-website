@@ -10,5 +10,5 @@ window.SPARTAN_SITE = {
   appBase: 'https://data.spartansystems.us',
   phone: '',
   bookUrl: '',
-  turnstileSiteKey: ''
+  turnstileSiteKey: '0x4AAAAAAGRa4tWSVqvNaGe5'
 };
