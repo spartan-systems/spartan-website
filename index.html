@@ -89,12 +89,13 @@
   .nav-contact{display:flex;align-items:center;gap:1.1rem;}
   .nav-contact a,.hero-contact a,.price-contact a{color:var(--dgray);text-decoration:none;font-weight:600;white-space:nowrap;}
   .nav-contact a:hover,.hero-contact a:hover,.price-contact a:hover{color:var(--blue2);}
-  .contact-book{border:1.5px solid rgba(0,0,0,0.12);border-radius:6px;padding:0.5rem 0.95rem;font-size:0.95rem;}
+  .nav-links a.contact-book{border:1.5px solid rgba(0,0,0,0.12);border-radius:6px;padding:0.6rem 1.2rem;font-size:1rem;font-weight:600;line-height:17px;}
   .hero-contact{display:none;justify-content:center;flex-wrap:wrap;gap:0.3rem 1.4rem;margin:0 0 1.1rem;font-size:0.98rem;}
   .hero-contact a{color:rgba(241,245,249,0.9);}
   .hero-contact a:hover{color:var(--white);}
-  .price-contact{font-size:0.98rem;color:var(--dgray);line-height:1.6;}
+  .price-contact{display:flex;flex-wrap:wrap;gap:0.25rem 1rem;font-size:0.98rem;color:var(--dgray);line-height:1.6;}
   .price-contact a{color:var(--blue2);}
+  .price-contact a:hover{color:var(--blue);text-decoration:underline;}
   [data-contact-group][hidden],[data-contact][hidden]{display:none!important;}
   @media(max-width:1280px){.nav-links .nav-contact-item{display:none;}.hero-contact:not([hidden]){display:flex;}}
 
@@ -1150,7 +1151,7 @@
     document.querySelectorAll('[data-contact]').forEach(a=>{
       const placement=a.dataset.placement;
       if(a.dataset.contact==='call'){
-        if(dial.length<7) return;
+        if(dial.replace(/\D/g,'').length<7) return;
         a.href='tel:'+dial; a.textContent=phone; a.hidden=false;
         a.addEventListener('click',()=>track('contact_call_clicked',placement));
       } else {

@@ -1,5 +1,6 @@
 // Settings the page reads. Each of these is hidden or off while empty.
 //   phone: the number shown in the header and the pricing section, such as '(555) 010-0199'. It becomes a tel: link.
+//     At least 7 digits, no extension and no letters, for example '+1 (555) 010-0199'.
 //   bookUrl: the calendar page for "Book 15 minutes", an https link. It opens in a new tab.
 //   turnstileSiteKey: switches on Cloudflare's check in the CAGE box.
 window.SPARTAN_SITE = {
