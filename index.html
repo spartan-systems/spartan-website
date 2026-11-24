@@ -85,6 +85,19 @@
   .finder-foot button{border:0;background:none;color:var(--blue2);font:inherit;font-weight:600;cursor:pointer;padding:0;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 
+  /* Contact: shown only when site-config.js sets a phone number or a calendar link */
+  .nav-contact{display:flex;align-items:center;gap:1.1rem;}
+  .nav-contact a,.hero-contact a,.price-contact a{color:var(--dgray);text-decoration:none;font-weight:600;white-space:nowrap;}
+  .nav-contact a:hover,.hero-contact a:hover,.price-contact a:hover{color:var(--blue2);}
+  .contact-book{border:1.5px solid rgba(0,0,0,0.12);border-radius:6px;padding:0.5rem 0.95rem;font-size:0.95rem;}
+  .hero-contact{display:none;justify-content:center;flex-wrap:wrap;gap:0.3rem 1.4rem;margin:0 0 1.1rem;font-size:0.98rem;}
+  .hero-contact a{color:rgba(241,245,249,0.9);}
+  .hero-contact a:hover{color:var(--white);}
+  .price-contact{font-size:0.98rem;color:var(--dgray);line-height:1.6;}
+  .price-contact a{color:var(--blue2);}
+  [data-contact-group][hidden],[data-contact][hidden]{display:none!important;}
+  @media(max-width:1280px){.nav-links .nav-contact-item{display:none;}.hero-contact:not([hidden]){display:flex;}}
+
   /* CAGE box */
   .cage{max-width:740px;margin:1.5rem auto 0;text-align:left;}
   .cage-form{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:0.9rem 1rem 1rem;}
@@ -476,6 +489,12 @@
     <li><a href="#coverage">Data</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#faq">FAQ</a></li>
+    <li class="nav-contact-item" data-contact-group hidden>
+      <div class="nav-contact">
+        <a href="#" data-contact="call" data-placement="nav" hidden></a>
+        <a href="#" data-contact="book" data-placement="nav" class="contact-book" target="_blank" rel="noopener" hidden>Book 15 minutes</a>
+      </div>
+    </li>
     <li class="nav-login"><a href="https://data.spartansystems.us/login" target="_blank" class="btn-login">Log In</a></li>
     <li class="nav-cta"><a href="https://data.spartansystems.us/start-trial" target="_blank" class="btn-nav" data-ph-capture-attribute-placement="nav">Start free trial</a></li>
   </ul>
@@ -485,6 +504,10 @@
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
   <div class="hero-inner">
+    <p class="hero-contact" data-contact-group hidden>
+      <a href="#" data-contact="call" data-placement="header" hidden></a>
+      <a href="#" data-contact="book" data-placement="header" target="_blank" rel="noopener" hidden>Book 15 minutes</a>
+    </p>
     <h1>DLA procurement intelligence for <span>DIBBS suppliers</span></h1>
     <p class="hero-sub">Open DIBBS solicitations scored against your CAGE code, with award history and DLA stock positions for 17 million NSNs.</p>
 
@@ -773,6 +796,11 @@
         </table>
         <a href="https://data.spartansystems.us/start-trial" target="_blank" class="btn-primary" data-ph-capture-attribute-placement="pricing">Start 7-day free trial</a>
         <p class="price-note">No card required. Free tier after 7 days without a card. Month to month, cancel anytime.</p>
+        <p class="price-contact" data-contact-group hidden>
+          Talk to a person:
+          <a href="#" data-contact="call" data-placement="pricing" hidden></a>
+          <a href="#" data-contact="book" data-placement="pricing" target="_blank" rel="noopener" hidden>Book 15 minutes</a>
+        </p>
       </div>
       <div class="price-right">
         <h3>Included in every plan</h3>
@@ -1108,6 +1136,31 @@
           busy=false; go.textContent='Show my RFQs'; go.disabled=input.value.length!==5;
           if(used&&widget!==null){ token=''; try{ turnstile.reset(widget); }catch(e){} }
         });
+    });
+  })();
+
+  // Phone and calendar link come from site-config.js. Each shows only when set, and a group shows only if one of its links does.
+  (function(){
+    const cfg=window.SPARTAN_SITE||{};
+    const phone=String(cfg.phone||'').trim();
+    const dial=phone.replace(/[^0-9+]/g,'');
+    const book=String(cfg.bookUrl||'').trim();
+    const bookOk=/^https:\/\/[^\s]+$/.test(book);
+    const track=(name,placement)=>{ try{ window.posthog&&posthog.capture(name,{placement:placement}); }catch(e){} };
+    document.querySelectorAll('[data-contact]').forEach(a=>{
+      const placement=a.dataset.placement;
+      if(a.dataset.contact==='call'){
+        if(dial.length<7) return;
+        a.href='tel:'+dial; a.textContent=phone; a.hidden=false;
+        a.addEventListener('click',()=>track('contact_call_clicked',placement));
+      } else {
+        if(!bookOk) return;
+        a.href=book; a.hidden=false;
+        a.addEventListener('click',()=>track('contact_book_clicked',placement));
+      }
+    });
+    document.querySelectorAll('[data-contact-group]').forEach(g=>{
+      g.hidden=!g.querySelector('[data-contact]:not([hidden])');
     });
   })();
 
