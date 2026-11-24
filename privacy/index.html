@@ -127,6 +127,7 @@
     <li><strong>Settings and content:</strong> alert criteria (such as NSNs, part numbers, FSCs, CAGE codes, keywords, and set-aside types), reorder watches (NSNs whose DLA stock you want to be told about), the CAGE codes you follow for award alerts, notification preferences, feedback you submit, and questions you ask the AI chat.</li>
     <li><strong>Inventory files:</strong> if your company imports its inventory, the CSV files you upload and the lines read from them, such as NSNs, part numbers, descriptions, quantities, condition codes, locations, unit costs, and CAGE codes, the column choices you make so the next file with the same headers is read the same way, and the problem reports we produce listing rows that were rejected or questionable. The result of each import, including the file name and any problem found, is sent to the member who ran it as an in-app notification, and by email if the import fails.</li>
     <li><strong>Payment details:</strong> subscriptions are processed by Stripe. We do not receive or store your full card number; we keep Stripe's customer and subscription identifiers and your subscription status. When you finish a checkout, our product analytics also records the plan you chose, its number of users, any free trial days, the amount, and the checkout's Stripe ID, with your other usage information.</li>
+    <li><strong>CAGE lookups:</strong> a CAGE code you type into the "Type your CAGE" box on our website or on the logged-out home page of the app is sent to our API, which answers with that company's open RFQ counts and three lines. When the CAGE belongs to a US company with DLA awards, we may tell our team which CAGE was looked up so that we can follow up.</li>
     <li><strong>Messages</strong> you send us by email.</li>
   </ul>
 
@@ -165,6 +166,7 @@
         <li>PostHog: product analytics and session recordings</li>
         <li>Google: sign-in with Google, if you choose it, and measuring which of our ads bring visitors to our marketing website</li>
         <li>Third-party AI providers: generating answers in the AI chat, turning AI searches into search filters, and matching what your company sells to catalog item names (see <a href="#ai">AI chat, AI search and what you sell</a>)</li>
+        <li>Cloudflare: delivering our API and, where we turn it on, checking that a CAGE lookup comes from a person</li>
         <li>Hosting, networking, and font providers: delivering our websites</li>
       </ul>
     </li>

@@ -85,6 +85,35 @@
   .finder-foot button{border:0;background:none;color:var(--blue2);font:inherit;font-weight:600;cursor:pointer;padding:0;}
   .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
 
+  /* CAGE box */
+  .cage{max-width:740px;margin:1.5rem auto 0;text-align:left;}
+  .cage-form{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:0.9rem 1rem 1rem;}
+  .cage-form label{display:block;color:var(--white);font-weight:600;font-size:1rem;line-height:1.4;margin-bottom:0.6rem;}
+  .cage-row{display:flex;gap:0.5rem;}
+  .cage-row input{flex:1;min-width:0;height:52px;border:1.5px solid transparent;border-radius:9px;padding:0 1rem;font:600 1.1rem 'Inter',sans-serif;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);background:var(--white);}
+  .cage-row input::placeholder{color:#9aa6b6;font-weight:400;}
+  .cage-row input:focus{outline:none;border-color:var(--blue3);box-shadow:0 0 0 3px rgba(59,130,246,0.35);}
+  .cage-row button{flex:none;height:52px;padding:0 1.5rem;background:var(--blue2);color:var(--white);border:0;border-radius:9px;font:600 1rem 'Inter',sans-serif;cursor:pointer;}
+  .cage-row button:hover:not(:disabled){background:var(--blue);}
+  .cage-row button:disabled{opacity:0.55;cursor:default;}
+  #cage-turnstile{display:flex;justify-content:center;margin-top:0.7rem;}
+  #cage-turnstile:empty{display:none;}
+  .cage-result{margin-top:0.75rem;background:var(--white);color:var(--text);border-radius:14px;padding:1.25rem 1.35rem;box-shadow:0 24px 60px rgba(0,0,0,0.35);}
+  .cage-name{font-size:1.2rem;font-weight:700;line-height:1.3;overflow-wrap:anywhere;}
+  .cage-place{font-size:0.9rem;color:var(--dgray);line-height:1.5;}
+  .cage-stats{display:flex;flex-wrap:wrap;gap:0.6rem 2.2rem;margin:1rem 0;}
+  .cage-stat span{display:block;font-size:0.82rem;color:var(--dgray);line-height:1.4;}
+  .cage-stat b{display:block;font-size:1.45rem;font-weight:700;line-height:1.25;}
+  .cage-lines{list-style:none;margin:0 0 1.1rem;}
+  .cage-lines li{display:flex;flex-wrap:wrap;gap:0.15rem 1.5rem;padding:0.7rem 0;border-top:1px solid var(--line);font-size:0.95rem;line-height:1.5;}
+  .cage-lines .cl-item{flex:1 1 220px;min-width:0;font-weight:600;overflow-wrap:anywhere;}
+  .cage-lines .cl-item small{display:block;font:500 0.78rem/1.4 ui-monospace,Menlo,monospace;color:var(--dgray);}
+  .cage-lines .cl-meta{flex:0 1 auto;color:var(--dgray);font-size:0.88rem;}
+  .cage-result .btn-primary{padding:0.8rem 1.6rem;font-size:1rem;}
+  .cage-msg{font-size:1rem;line-height:1.6;margin:0.7rem 0 1rem;}
+  .cage-result > .cage-msg:only-child{margin:0;}
+  .cage-msg a{color:var(--blue2);font-weight:600;}
+
   .hero-cta{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0.75rem 1.4rem;margin-top:1.9rem;}
   .hero-note{font-size:0.95rem;color:rgba(241,245,249,0.65);}
 
@@ -288,6 +317,9 @@
     .finder-row input[type=text]{height:52px;font-size:1.05rem;padding:0 0.85rem;}
     .finder-row button{height:52px;padding:0 1.1rem;}
     .finder-foot{font-size:0.82rem;}
+    .cage-row button{padding:0 1rem;}
+    .cage-result{padding:1.1rem 1rem;}
+    .cage-result .btn-primary{width:100%;text-align:center;}
     .hero-cta{flex-direction:column;gap:0.6rem;margin-top:1.4rem;}
     .hero-cta .btn-primary{width:100%;text-align:center;}
     .hero-live{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0.9rem 0;padding:1.5rem 16px 0;font-size:0.85rem;text-align:left;}
@@ -343,6 +375,7 @@
   gtag('set', 'allow_ad_personalization_signals', false);
   gtag('config', 'AW-17734229904');
 </script>
+<script src="site-config.js"></script>
 <!-- PostHog: same project as data.spartansystems.us, which reads this cookie, so one visitor ID runs from the ad to sign-up -->
 <script>
   !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
@@ -472,6 +505,18 @@
         <span>Try <button type="button" id="hero-try">5306-01-045-6594</button></span>
       </div>
     </form>
+
+    <div class="cage" id="cage-report">
+      <form class="cage-form" id="cage-form" novalidate>
+        <label for="cage-q">Type your CAGE to see your open RFQs</label>
+        <div class="cage-row">
+          <input id="cage-q" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="6JSD9" aria-describedby="cage-result">
+          <button type="submit" id="cage-go" disabled>Show my RFQs</button>
+        </div>
+        <div id="cage-turnstile"></div>
+      </form>
+      <div class="cage-result" id="cage-result" aria-live="polite" hidden></div>
+    </div>
 
     <div class="hero-cta">
       <a href="https://data.spartansystems.us/start-trial" target="_blank" class="btn-primary" data-ph-capture-attribute-placement="hero">Start 7-day free trial</a>
@@ -964,12 +1009,156 @@
     });
   })();
 
+  // The page's settings with the production bases as the fallback when site-config.js doesn't load.
+  window.SPARTAN_SITE=Object.assign({apiBase:'https://api.spartansystems.us/api',appBase:'https://data.spartansystems.us',turnstileSiteKey:''},window.SPARTAN_SITE||{});
+
+  (function(){
+    const cfg=window.SPARTAN_SITE;
+    const form=document.getElementById('cage-form');
+    if(!form) return;
+    const input=document.getElementById('cage-q');
+    const go=document.getElementById('cage-go');
+    const out=document.getElementById('cage-result');
+    const widgetBox=document.getElementById('cage-turnstile');
+    const track=(name,props)=>{ try{ window.posthog&&posthog.capture(name,props); }catch(e){} };
+    const n=x=>Number(x).toLocaleString('en-US');
+    const UNITS=[[1e9,'B',2],[1e6,'M',1],[1e3,'K',1]];
+    const money=v=>{
+      v=Number(v)||0;
+      for(let i=0;i<UNITS.length;i++){
+        const u=UNITS[i];
+        if(v<u[0]) continue;
+        // 999,960 rounds to 1000.0K, so it moves up a unit before it is written.
+        if(+(v/u[0]).toFixed(u[2])>=1000&&i>0){ const p=UNITS[i-1]; return '$'+(v/p[0]).toFixed(p[2])+p[1]; }
+        return '$'+(v/u[0]).toFixed(u[2])+u[1];
+      }
+      return '$'+v.toFixed(2);
+    };
+    const title=t=>t.toLowerCase().replace(/(^|[\s'.(-])\p{L}/gu,m=>m.toUpperCase());
+    const KEEP_UPPER=['LLC','LP','LLP','USA','US','DBA'], TITLE_CASE=['INC','CO','LTD','CORP'];
+    // DLA's CAGE file is all upper case. This is the app's companyDisplayName.
+    const name=c=>{
+      const t=(c||'').trim();
+      if(!t||t!==t.toUpperCase()) return t;
+      return t.split(/\s+/).map(w=>{
+        const bare=w.replace(/[^A-Z0-9]/g,'');
+        if(!TITLE_CASE.includes(bare)&&(KEEP_UPPER.includes(bare)||/\d/.test(bare)||(bare.length>1&&bare.length<=4&&!/[AEIOUY]/.test(bare)))) return w;
+        return title(w).replace(/'S\b/g,"'s");
+      }).join(' ');
+    };
+    const el=(tag,cls,text)=>{ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; };
+    const stat=(label,value)=>{ const d=el('div','cage-stat'); d.append(el('span',null,label),el('b',null,value)); return d; };
+    const show=node=>{ out.replaceChildren(node); out.hidden=false; };
+    const message=(text,withSignup)=>{
+      const p=el('p','cage-msg',text);
+      if(withSignup){
+        p.append(' ');
+        const a=el('a',null,'Create a free account');
+        a.href=cfg.appBase+'/start-trial'; a.target='_blank'; a.rel='noopener';
+        a.setAttribute('data-ph-capture-attribute-placement','cage_report');
+        p.append(a);
+      }
+      show(p);
+    };
+    const niin=v=>String(v).padStart(9,'0').replace(/(\d{2})(\d{3})(\d{4})/,'$1-$2-$3');
+
+    const render=r=>{
+      const box=document.createElement('div');
+      box.append(el('div','cage-name',name(r.companyName)||'CAGE '+r.cageCode));
+      const place=[r.city&&title(r.city),r.state].filter(Boolean).join(', ');
+      box.append(el('div','cage-place',(place?place+', ':'')+'CAGE '+r.cageCode));
+      let label;
+      if(r.largeActivity){
+        box.append(el('p','cage-msg','This CAGE has more open RFQs than we can count here.'));
+        label='See your open RFQs';
+      } else if(r.noOpenRfqs){
+        box.append(el('p','cage-msg',"There are no open RFQs on items you've won right now."));
+        label='Get an email when one posts';
+      } else {
+        const stats=el('div','cage-stats');
+        stats.append(stat('Open now',n(r.openRfqs)),stat('Distinct items',n(r.items)),stat('Est. value',money(r.estimatedValue)));
+        if(r.closesSoonest) stats.append(stat('Closes soonest',r.closesSoonest));
+        box.append(stats);
+        const list=el('ul','cage-lines');
+        (r.lines||[]).forEach(l=>{
+          const li=el('li');
+          const item=el('span','cl-item',l.itemName||'Item name not listed');
+          item.append(el('small',null,l.solicitationNumber));
+          li.append(item,el('span','cl-meta','NIIN '+niin(l.niin)),
+            el('span','cl-meta',l.quantity==null?'':n(l.quantity)+(l.unitOfIssue?' '+l.unitOfIssue:'')),
+            el('span','cl-meta',l.returnBy?'Closes '+l.returnBy:''));
+          list.append(li);
+        });
+        box.append(list);
+        label='See all '+n(r.openRfqs)+' open '+(r.openRfqs===1?'RFQ':'RFQs');
+      }
+      const a=el('a','btn-primary',label);
+      a.href=cfg.appBase+'/start-trial?cage='+encodeURIComponent(r.cageCode)+'&company='+encodeURIComponent(r.companyName||'');
+      a.target='_blank'; a.rel='noopener';
+      a.setAttribute('data-ph-capture-attribute-placement','cage_report');
+      a.addEventListener('click',()=>track('cage_report_signup',{cage:r.cageCode,open_rfqs:r.openRfqs,source:'site'}));
+      box.append(a);
+      show(box);
+    };
+
+    let widget=null, token='', blocked=false, busy=false;
+    const keyOn=!!cfg.turnstileSiteKey;
+    const BLOCKED='The check that confirms you are a person did not finish. Refresh the page and try again.';
+    // With a site key a lookup waits for a fresh token, since each works once.
+    const sync=()=>{ go.disabled=busy||input.value.length!==5||(keyOn&&!token); };
+    if(keyOn){
+      window.__cageTurnstileReady=()=>{
+        widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,
+          callback:t=>{ token=t; if(blocked){ blocked=false; if(out.dataset.blocked){ out.hidden=true; delete out.dataset.blocked; } } sync(); },
+          'expired-callback':()=>{ token=''; sync(); },
+          'error-callback':()=>{ token=''; blocked=true; message(BLOCKED); out.dataset.blocked='1'; sync(); }});
+      };
+      if(!document.querySelector('script[data-cage-turnstile]')){
+        const s=document.createElement('script');
+        s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__cageTurnstileReady';
+        s.async=true; s.setAttribute('data-cage-turnstile','');
+        s.onerror=()=>{ blocked=true; message(BLOCKED); out.dataset.blocked='1'; };
+        document.head.appendChild(s);
+      }
+    }
+
+    input.addEventListener('input',()=>{
+      input.value=input.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,5);
+      sync();
+    });
+
+    form.addEventListener('submit',e=>{
+      e.preventDefault();
+      const cage=input.value;
+      if(cage.length!==5||busy||(keyOn&&!token)) return;
+      busy=true; sync(); go.textContent='Looking up';
+      const headers={};
+      if(token) headers['X-Turnstile-Token']=token;
+      const used=token;
+      token='';
+      fetch(cfg.apiBase+'/Site/cage-report?cage='+encodeURIComponent(cage),{headers:headers,signal:AbortSignal.timeout?AbortSignal.timeout(15000):undefined})
+        .then(r=>r.json().catch(()=>({})).then(body=>({ok:r.ok,status:r.status,body:body})))
+        .then(({ok,status,body})=>{
+          delete out.dataset.blocked;
+          if(ok&&body.eligible){ track('cage_report_requested',{eligible:true,source:'site',cage:body.cageCode}); render(body); }
+          else if(ok){ track('cage_report_requested',{eligible:false,source:'site'}); message("We couldn't find DLA awards for that CAGE.",true); }
+          else { track('cage_report_failed',{source:'site'}); message(([403,429,503].indexOf(status)>=0)&&body.message?body.message:'The lookup failed. Try again.'); }
+        })
+        .catch(()=>{ track('cage_report_failed',{source:'site'}); message('The lookup failed. Try again.'); })
+        .finally(()=>{
+          busy=false; go.textContent='Show my RFQs';
+          if(used&&widget!==null){ try{ turnstile.reset(widget); }catch(err){} }
+          sync();
+        });
+    });
+  })();
+
   // Counts come from the API. If the call fails, the static text stays.
   (function(){
     const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
     const day=d=>{const p=(d||'').split('-');return p.length===3?months[+p[1]-1]+' '+(+p[2]):null;};
     const n=x=>Number(x).toLocaleString('en-US');
-    fetch('https://api.spartansystems.us/api/Site/stats',{signal:AbortSignal.timeout?AbortSignal.timeout(6000):undefined}).then(r=>r.ok?r.json():null).then(s=>{
+    fetch(window.SPARTAN_SITE.apiBase+'/Site/stats',{signal:AbortSignal.timeout?AbortSignal.timeout(6000):undefined}).then(r=>r.ok?r.json():null).then(s=>{
       if(!s) return;
       const ns=s.newSolicitations;
       if(ns&&ns.count>0&&day(ns.date)){
