@@ -110,8 +110,8 @@
   .cage-row button{flex:none;height:52px;padding:0 1.5rem;background:var(--blue2);color:var(--white);border:0;border-radius:9px;font:600 1rem 'Inter',sans-serif;cursor:pointer;}
   .cage-row button:hover:not(:disabled){background:var(--blue);}
   .cage-row button:disabled{opacity:0.55;cursor:default;}
-  #cage-turnstile{display:flex;justify-content:center;}
-  #cage-turnstile.on{margin-top:0.7rem;}
+  #cage-turnstile{display:flex;justify-content:center;height:0;overflow:hidden;}
+  #cage-turnstile.on{height:auto;overflow:visible;margin-top:0.7rem;}
   .cage-result{margin-top:0.75rem;background:var(--white);color:var(--text);border-radius:14px;padding:1.25rem 1.35rem;box-shadow:0 24px 60px rgba(0,0,0,0.35);}
   .cage-name{font-size:1.2rem;font-weight:700;line-height:1.3;overflow-wrap:anywhere;}
   .cage-place{font-size:0.9rem;color:var(--dgray);line-height:1.5;}
@@ -1131,18 +1131,18 @@
       show(box);
     };
 
-    let widget=null, busy=false, dirty=false, waiting=null, ready=null;
+    let widget=null, busy=false, dirty=false, waiting=null, ready=null, gen=0;
     const keyOn=!!cfg.turnstileSiteKey;
     const BLOCKED='The check that confirms you are a person did not finish. Refresh the page and try again.';
+    const NOT_FINISHED='The check that confirms you are a person did not finish. Try again.';
     const sync=()=>{ go.disabled=busy||input.value.length!==5; };
-    // Execute mode: the check runs on a click, and the widget shows only if Cloudflare needs the person.
     if(keyOn){
       ready=new Promise((resolve,reject)=>{
         window.__cageTurnstileReady=()=>{
           widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,execution:'execute',appearance:'interaction-only',
             callback:t=>{ if(waiting) waiting.ok(t); },
-            'error-callback':()=>{ if(waiting) waiting.fail(); },
-            'timeout-callback':()=>{ if(waiting) waiting.fail(); },
+            'error-callback':()=>{ if(waiting) waiting.fail('error'); },
+            'timeout-callback':()=>{ if(waiting) waiting.fail('error'); },
             'before-interactive-callback':()=>{ widgetBox.classList.add('on'); if(waiting) waiting.extend(); },
             'after-interactive-callback':()=>{ widgetBox.classList.remove('on'); }});
           resolve();
@@ -1160,13 +1160,19 @@
       dirty=false;
       try{ turnstile.reset(widget); }catch(err){}
     };
+    // Each click gets an id so a script that loads after its click timed out can't run the check.
     const getToken=()=>new Promise((resolve,reject)=>{
+      const mine=++gen;
       let timer;
       const done=fn=>v=>{ clearTimeout(timer); waiting=null; widgetBox.classList.remove('on'); fn(v); };
-      const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject),ms); };
+      const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject),ms,'timeout'); };
       waiting={ok:done(resolve),fail:done(reject),extend:()=>arm(60000)};
       arm(20000);
-      ready.then(()=>{ resetWidget(); dirty=true; turnstile.execute(widget); },done(reject));
+      ready.then(()=>{
+        if(gen!==mine||!waiting) return;
+        try{ resetWidget(); dirty=true; turnstile.execute(widget); }
+        catch(err){ waiting.fail('error'); }
+      },()=>{ if(gen===mine&&waiting) waiting.fail('script_blocked'); });
     });
 
     input.addEventListener('input',()=>{
@@ -1184,14 +1190,15 @@
       if(keyOn){
         go.textContent='Checking…';
         try{ headers['X-Turnstile-Token']=await getToken(); }
-        catch(err){
+        catch(reason){
           resetWidget();
-          message(BLOCKED); out.dataset.blocked='1';
+          track('cage_report_check_failed',{source:'site',reason:reason});
+          message(reason==='script_blocked'?BLOCKED:NOT_FINISHED); out.dataset.blocked='1';
           busy=false; go.textContent='Show my RFQs'; sync();
           return;
         }
       }
-      go.textContent='Looking up';
+      go.textContent='Looking up…';
       fetch(cfg.apiBase+'/Site/cage-report?cage='+encodeURIComponent(cage),{headers:headers,signal:AbortSignal.timeout?AbortSignal.timeout(15000):undefined})
         .then(r=>r.json().catch(()=>({})).then(body=>({ok:r.ok,status:r.status,body:body})))
         .then(({ok,status,body})=>{
