@@ -110,8 +110,8 @@
   .cage-row button{flex:none;height:52px;padding:0 1.5rem;background:var(--blue2);color:var(--white);border:0;border-radius:9px;font:600 1rem 'Inter',sans-serif;cursor:pointer;}
   .cage-row button:hover:not(:disabled){background:var(--blue);}
   .cage-row button:disabled{opacity:0.55;cursor:default;}
-  #cage-turnstile{display:flex;justify-content:center;margin-top:0.7rem;}
-  #cage-turnstile:empty{display:none;}
+  #cage-turnstile{display:flex;justify-content:center;}
+  #cage-turnstile.on{margin-top:0.7rem;}
   .cage-result{margin-top:0.75rem;background:var(--white);color:var(--text);border-radius:14px;padding:1.25rem 1.35rem;box-shadow:0 24px 60px rgba(0,0,0,0.35);}
   .cage-name{font-size:1.2rem;font-weight:700;line-height:1.3;overflow-wrap:anywhere;}
   .cage-place{font-size:0.9rem;color:var(--dgray);line-height:1.5;}
@@ -1131,41 +1131,67 @@
       show(box);
     };
 
-    let widget=null, token='', blocked=false, busy=false;
+    let widget=null, busy=false, dirty=false, waiting=null, ready=null;
     const keyOn=!!cfg.turnstileSiteKey;
     const BLOCKED='The check that confirms you are a person did not finish. Refresh the page and try again.';
-    // With a site key a lookup waits for a fresh token, since each works once.
-    const sync=()=>{ go.disabled=busy||input.value.length!==5||(keyOn&&!token); };
+    const sync=()=>{ go.disabled=busy||input.value.length!==5; };
+    // Execute mode: the check runs on a click, and the widget shows only if Cloudflare needs the person.
     if(keyOn){
-      window.__cageTurnstileReady=()=>{
-        widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,
-          callback:t=>{ token=t; if(blocked){ blocked=false; if(out.dataset.blocked){ out.hidden=true; delete out.dataset.blocked; } } sync(); },
-          'expired-callback':()=>{ token=''; sync(); },
-          'error-callback':()=>{ token=''; blocked=true; message(BLOCKED); out.dataset.blocked='1'; sync(); }});
-      };
-      if(!document.querySelector('script[data-cage-turnstile]')){
+      ready=new Promise((resolve,reject)=>{
+        window.__cageTurnstileReady=()=>{
+          widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,execution:'execute',appearance:'interaction-only',
+            callback:t=>{ if(waiting) waiting.ok(t); },
+            'error-callback':()=>{ if(waiting) waiting.fail(); },
+            'timeout-callback':()=>{ if(waiting) waiting.fail(); },
+            'before-interactive-callback':()=>{ widgetBox.classList.add('on'); if(waiting) waiting.extend(); },
+            'after-interactive-callback':()=>{ widgetBox.classList.remove('on'); }});
+          resolve();
+        };
         const s=document.createElement('script');
         s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__cageTurnstileReady';
         s.async=true; s.setAttribute('data-cage-turnstile','');
-        s.onerror=()=>{ blocked=true; message(BLOCKED); out.dataset.blocked='1'; };
+        s.onerror=()=>reject(new Error('blocked'));
         document.head.appendChild(s);
-      }
+      });
+      ready.catch(()=>{});
     }
+    const resetWidget=()=>{
+      if(widget===null||!dirty) return;
+      dirty=false;
+      try{ turnstile.reset(widget); }catch(err){}
+    };
+    const getToken=()=>new Promise((resolve,reject)=>{
+      let timer;
+      const done=fn=>v=>{ clearTimeout(timer); waiting=null; widgetBox.classList.remove('on'); fn(v); };
+      const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject),ms); };
+      waiting={ok:done(resolve),fail:done(reject),extend:()=>arm(60000)};
+      arm(20000);
+      ready.then(()=>{ resetWidget(); dirty=true; turnstile.execute(widget); },done(reject));
+    });
 
     input.addEventListener('input',()=>{
       input.value=input.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,5);
       sync();
     });
 
-    form.addEventListener('submit',e=>{
+    form.addEventListener('submit',async e=>{
       e.preventDefault();
       const cage=input.value;
-      if(cage.length!==5||busy||(keyOn&&!token)) return;
-      busy=true; sync(); go.textContent='Looking up';
+      if(cage.length!==5||busy) return;
+      busy=true; sync();
+      if(out.dataset.blocked){ out.hidden=true; delete out.dataset.blocked; }
       const headers={};
-      if(token) headers['X-Turnstile-Token']=token;
-      const used=token;
-      token='';
+      if(keyOn){
+        go.textContent='Checking…';
+        try{ headers['X-Turnstile-Token']=await getToken(); }
+        catch(err){
+          resetWidget();
+          message(BLOCKED); out.dataset.blocked='1';
+          busy=false; go.textContent='Show my RFQs'; sync();
+          return;
+        }
+      }
+      go.textContent='Looking up';
       fetch(cfg.apiBase+'/Site/cage-report?cage='+encodeURIComponent(cage),{headers:headers,signal:AbortSignal.timeout?AbortSignal.timeout(15000):undefined})
         .then(r=>r.json().catch(()=>({})).then(body=>({ok:r.ok,status:r.status,body:body})))
         .then(({ok,status,body})=>{
@@ -1177,7 +1203,7 @@
         .catch(()=>{ track('cage_report_failed',{source:'site'}); message('The lookup failed. Try again.'); })
         .finally(()=>{
           busy=false; go.textContent='Show my RFQs';
-          if(used&&widget!==null){ try{ turnstile.reset(widget); }catch(err){} }
+          resetWidget();
           sync();
         });
     });
