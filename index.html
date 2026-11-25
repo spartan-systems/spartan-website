@@ -1133,7 +1133,7 @@
     };
 
     let widget=null, busy=false, dirty=false, waiting=null, ready=null, gen=0;
-    let token='', tokenAt=0, running=false, needsUser=false, failed=false, wantRun=false;
+    let sayTimer, token='', tokenAt=0, running=false, needsUser=false, failed=false, wantRun=false;
     const keyOn=!!cfg.turnstileSiteKey;
     const announce=document.getElementById('cage-announce');
     const TOKEN_MAX_MS=280000;
@@ -1144,7 +1144,9 @@
       widgetBox.classList.toggle('on',on);
       widgetBox.inert=!on;
       if(on) widgetBox.removeAttribute('aria-hidden'); else widgetBox.setAttribute('aria-hidden','true');
-      announce.textContent=on?'Complete the check to continue.':'';
+      clearTimeout(sayTimer);
+      announce.textContent='';
+      if(on) sayTimer=setTimeout(()=>{ announce.textContent='Complete the check to continue.'; },60);
     };
     const reveal=()=>{ if(waiting&&needsUser){ showWidget(true); waiting.extend(); } };
     const stopWidget=()=>{
@@ -1170,7 +1172,7 @@
             widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,execution:'execute',appearance:'interaction-only',
               callback:t=>{ running=false; needsUser=false; if(waiting) waiting.ok(t); else{ token=t; tokenAt=Date.now(); } },
               'error-callback':code=>{ if(waiting){ running=false; needsUser=false; failed=true; waiting.fail('error',code); } else silentStop(); },
-              'timeout-callback':()=>{ if(waiting&&!waiting.retried){ waiting.retried=true; running=false; needsUser=false; start(false); } else if(waiting){ running=false; needsUser=false; failed=true; waiting.fail('error'); } else silentStop(); },
+              'timeout-callback':()=>{ if(waiting&&!waiting.retried){ waiting.retried=true; running=false; needsUser=false; showWidget(false); start(false); } else if(waiting){ running=false; needsUser=false; failed=true; waiting.fail('error'); } else silentStop(); },
               'expired-callback':()=>{ token=''; running=false; if(document.activeElement===input) start(true); },
               'before-interactive-callback':()=>{ needsUser=true; reveal(); },
               'after-interactive-callback':()=>{ needsUser=false; showWidget(false); }});
@@ -1195,9 +1197,9 @@
       const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject,true),ms,{reason:'timeout'}); };
       if(token&&Date.now()-tokenAt>TOKEN_MAX_MS){ stopWidget(); }
       if(token){ const t=token; token=''; resolve(t); return; }
-      waiting={ok:done(resolve),fail:(reason,code)=>done(reject,true)({reason:reason,code:code}),extend:()=>arm(60000),retried:false};
+      waiting={ok:done(resolve),fail:(reason,code,refresh)=>done(reject,true)({reason:reason,code:code,refresh:refresh}),extend:()=>arm(60000),retried:false};
       arm(20000);
-      ready.then(null,e=>{ if(gen===mine&&waiting) waiting.fail(e&&e.render?'error':'script_blocked'); });
+      ready.then(null,e=>{ if(gen===mine&&waiting) e&&e.render?waiting.fail('error',undefined,true):waiting.fail('script_blocked'); });
       // A challenge that went interactive while hidden has been using Cloudflare's own clock, so it starts over.
       if(running&&needsUser){ stopWidget(); }
       start(false);
@@ -1219,13 +1221,13 @@
       if(out.dataset.blocked){ out.hidden=true; delete out.dataset.blocked; }
       const headers={};
       if(keyOn){
-        if(!token) go.textContent='Checking…';
+        if(!token||Date.now()-tokenAt>TOKEN_MAX_MS) go.textContent='Checking…';
         try{ headers['X-Turnstile-Token']=await getToken(); }
         catch(f){
           resetWidget();
           failed=true;
           track('cage_report_check_failed',Object.assign({source:'site',reason:f.reason},f.code?{code:String(f.code)}:{}));
-          message(f.reason==='script_blocked'?BLOCKED:NOT_FINISHED); out.dataset.blocked='1';
+          message(f.refresh||f.reason==='script_blocked'?BLOCKED:NOT_FINISHED); out.dataset.blocked='1';
           busy=false; go.textContent='Show my RFQs'; sync();
           return;
         }
