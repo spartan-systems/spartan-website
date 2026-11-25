@@ -1132,20 +1132,34 @@
     };
 
     let widget=null, busy=false, dirty=false, waiting=null, ready=null, gen=0;
+    let token='', running=false, needsUser=false, failed=false, wantRun=false;
     const keyOn=!!cfg.turnstileSiteKey;
     const BLOCKED='The check that confirms you are a person did not finish. Refresh the page and try again.';
     const NOT_FINISHED='The check that confirms you are a person did not finish. Try again.';
     const sync=()=>{ go.disabled=busy||input.value.length!==5; };
+    // The widget stays collapsed until a click needs the person to interact with it.
+    const reveal=()=>{ if(waiting&&needsUser){ widgetBox.classList.add('on'); waiting.extend(); } };
+    // Runs the check ahead of the click. A failed silent run waits for a click before it tries again.
+    const start=auto=>{
+      if(!keyOn||running||token) return;
+      if(auto&&failed) return;
+      if(!auto) failed=false;
+      if(widget===null){ wantRun=true; return; }
+      try{ if(dirty) turnstile.reset(widget); dirty=true; running=true; turnstile.execute(widget); }
+      catch(err){ running=false; failed=true; if(waiting) waiting.fail('error'); }
+    };
     if(keyOn){
       ready=new Promise((resolve,reject)=>{
         window.__cageTurnstileReady=()=>{
           widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,execution:'execute',appearance:'interaction-only',
-            callback:t=>{ if(waiting) waiting.ok(t); },
-            'error-callback':()=>{ if(waiting) waiting.fail('error'); },
-            'timeout-callback':()=>{ if(waiting) waiting.fail('error'); },
-            'before-interactive-callback':()=>{ widgetBox.classList.add('on'); if(waiting) waiting.extend(); },
-            'after-interactive-callback':()=>{ widgetBox.classList.remove('on'); }});
+            callback:t=>{ running=false; needsUser=false; if(waiting) waiting.ok(t); else token=t; },
+            'error-callback':()=>{ running=false; needsUser=false; failed=true; if(waiting) waiting.fail('error'); },
+            'timeout-callback':()=>{ running=false; needsUser=false; failed=true; if(waiting) waiting.fail('error'); },
+            'expired-callback':()=>{ token=''; running=false; if(document.activeElement===input) start(true); },
+            'before-interactive-callback':()=>{ needsUser=true; reveal(); },
+            'after-interactive-callback':()=>{ needsUser=false; widgetBox.classList.remove('on'); }});
           resolve();
+          if(wantRun){ wantRun=false; start(false); }
         };
         const s=document.createElement('script');
         s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=__cageTurnstileReady';
@@ -1156,6 +1170,8 @@
       ready.catch(()=>{});
     }
     const resetWidget=()=>{
+      token=''; running=false; needsUser=false;
+      widgetBox.classList.remove('on');
       if(widget===null||!dirty) return;
       dirty=false;
       try{ turnstile.reset(widget); }catch(err){}
@@ -1164,21 +1180,22 @@
     const getToken=()=>new Promise((resolve,reject)=>{
       const mine=++gen;
       let timer;
-      const done=fn=>v=>{ clearTimeout(timer); waiting=null; widgetBox.classList.remove('on'); fn(v); };
-      const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject),ms,'timeout'); };
-      waiting={ok:done(resolve),fail:done(reject),extend:()=>arm(60000)};
+      const done=(fn,bad)=>v=>{ clearTimeout(timer); if(gen===mine) waiting=null; if(bad){ failed=true; wantRun=false; } widgetBox.classList.remove('on'); fn(v); };
+      const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject,true),ms,'timeout'); };
+      if(token){ const t=token; token=''; resolve(t); return; }
+      waiting={ok:done(resolve),fail:done(reject,true),extend:()=>arm(60000)};
       arm(20000);
-      ready.then(()=>{
-        if(gen!==mine||!waiting) return;
-        try{ resetWidget(); dirty=true; turnstile.execute(widget); }
-        catch(err){ waiting.fail('error'); }
-      },()=>{ if(gen===mine&&waiting) waiting.fail('script_blocked'); });
+      ready.then(null,()=>{ if(gen===mine&&waiting) waiting.fail('script_blocked'); });
+      start(false);
+      reveal();
     });
 
     input.addEventListener('input',()=>{
       input.value=input.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,5);
       sync();
+      start(true);
     });
+    input.addEventListener('focus',()=>start(true));
 
     form.addEventListener('submit',async e=>{
       e.preventDefault();
@@ -1188,10 +1205,11 @@
       if(out.dataset.blocked){ out.hidden=true; delete out.dataset.blocked; }
       const headers={};
       if(keyOn){
-        go.textContent='Checking…';
+        if(!token) go.textContent='Checking…';
         try{ headers['X-Turnstile-Token']=await getToken(); }
         catch(reason){
           resetWidget();
+          failed=true;
           track('cage_report_check_failed',{source:'site',reason:reason});
           message(reason==='script_blocked'?BLOCKED:NOT_FINISHED); out.dataset.blocked='1';
           busy=false; go.textContent='Show my RFQs'; sync();
@@ -1211,6 +1229,7 @@
         .finally(()=>{
           busy=false; go.textContent='Show my RFQs';
           resetWidget();
+          start(true);
           sync();
         });
     });
