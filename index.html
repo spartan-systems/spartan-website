@@ -537,7 +537,8 @@
           <input id="cage-q" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="6JSD9" aria-describedby="cage-result">
           <button type="submit" id="cage-go" disabled>Show my RFQs</button>
         </div>
-        <div id="cage-turnstile"></div>
+        <div id="cage-turnstile" inert aria-hidden="true"></div>
+        <div class="sr-only" id="cage-announce" role="status"></div>
       </form>
       <div class="cage-result" id="cage-result" aria-live="polite" hidden></div>
     </div>
@@ -1132,32 +1133,48 @@
     };
 
     let widget=null, busy=false, dirty=false, waiting=null, ready=null, gen=0;
-    let token='', running=false, needsUser=false, failed=false, wantRun=false;
+    let token='', tokenAt=0, running=false, needsUser=false, failed=false, wantRun=false;
     const keyOn=!!cfg.turnstileSiteKey;
+    const announce=document.getElementById('cage-announce');
+    const TOKEN_MAX_MS=280000;
     const BLOCKED='The check that confirms you are a person did not finish. Refresh the page and try again.';
     const NOT_FINISHED='The check that confirms you are a person did not finish. Try again.';
-    const sync=()=>{ go.disabled=busy||input.value.length!==5; };
-    // The widget stays collapsed until a click needs the person to interact with it.
-    const reveal=()=>{ if(waiting&&needsUser){ widgetBox.classList.add('on'); waiting.extend(); } };
-    // Runs the check ahead of the click. A failed silent run waits for a click before it tries again.
+    const sync=()=>{ go.disabled=busy||input.value.length!==5; input.readOnly=busy; };
+    const showWidget=on=>{
+      widgetBox.classList.toggle('on',on);
+      widgetBox.inert=!on;
+      if(on) widgetBox.removeAttribute('aria-hidden'); else widgetBox.setAttribute('aria-hidden','true');
+      announce.textContent=on?'Complete the check to continue.':'';
+    };
+    const reveal=()=>{ if(waiting&&needsUser){ showWidget(true); waiting.extend(); } };
+    const stopWidget=()=>{
+      token=''; running=false; needsUser=false;
+      if(widget===null||!dirty) return;
+      dirty=false;
+      try{ turnstile.reset(widget); }catch(err){}
+    };
     const start=auto=>{
       if(!keyOn||running||token) return;
-      if(auto&&failed) return;
+      if(auto&&(failed||busy)) return;
       if(!auto) failed=false;
       if(widget===null){ wantRun=true; return; }
-      try{ if(dirty) turnstile.reset(widget); dirty=true; running=true; turnstile.execute(widget); }
+      try{ if(dirty) turnstile.reset(widget); dirty=true; running=true; needsUser=false; turnstile.execute(widget); }
       catch(err){ running=false; failed=true; if(waiting) waiting.fail('error'); }
     };
+    // A silent failure resets the widget so Cloudflare stops retrying in the background until the next click.
+    const silentStop=()=>{ running=false; needsUser=false; failed=true; stopWidget(); };
     if(keyOn){
       ready=new Promise((resolve,reject)=>{
         window.__cageTurnstileReady=()=>{
-          widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,execution:'execute',appearance:'interaction-only',
-            callback:t=>{ running=false; needsUser=false; if(waiting) waiting.ok(t); else token=t; },
-            'error-callback':()=>{ running=false; needsUser=false; failed=true; if(waiting) waiting.fail('error'); },
-            'timeout-callback':()=>{ running=false; needsUser=false; failed=true; if(waiting) waiting.fail('error'); },
-            'expired-callback':()=>{ token=''; running=false; if(document.activeElement===input) start(true); },
-            'before-interactive-callback':()=>{ needsUser=true; reveal(); },
-            'after-interactive-callback':()=>{ needsUser=false; widgetBox.classList.remove('on'); }});
+          try{
+            widget=turnstile.render(widgetBox,{sitekey:cfg.turnstileSiteKey,execution:'execute',appearance:'interaction-only',
+              callback:t=>{ running=false; needsUser=false; if(waiting) waiting.ok(t); else{ token=t; tokenAt=Date.now(); } },
+              'error-callback':code=>{ if(waiting){ running=false; needsUser=false; failed=true; waiting.fail('error',code); } else silentStop(); },
+              'timeout-callback':()=>{ if(waiting&&!waiting.retried){ waiting.retried=true; running=false; needsUser=false; start(false); } else if(waiting){ running=false; needsUser=false; failed=true; waiting.fail('error'); } else silentStop(); },
+              'expired-callback':()=>{ token=''; running=false; if(document.activeElement===input) start(true); },
+              'before-interactive-callback':()=>{ needsUser=true; reveal(); },
+              'after-interactive-callback':()=>{ needsUser=false; showWidget(false); }});
+          }catch(err){ const e=new Error('render'); e.render=true; reject(e); return; }
           resolve();
           if(wantRun){ wantRun=false; start(false); }
         };
@@ -1169,23 +1186,20 @@
       });
       ready.catch(()=>{});
     }
-    const resetWidget=()=>{
-      token=''; running=false; needsUser=false;
-      widgetBox.classList.remove('on');
-      if(widget===null||!dirty) return;
-      dirty=false;
-      try{ turnstile.reset(widget); }catch(err){}
-    };
-    // Each click gets an id so a script that loads after its click timed out can't run the check.
+    const resetWidget=()=>{ stopWidget(); showWidget(false); };
+    // Each click gets an id so a failed or timed-out click can't be answered by an older one.
     const getToken=()=>new Promise((resolve,reject)=>{
       const mine=++gen;
       let timer;
-      const done=(fn,bad)=>v=>{ clearTimeout(timer); if(gen===mine) waiting=null; if(bad){ failed=true; wantRun=false; } widgetBox.classList.remove('on'); fn(v); };
-      const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject,true),ms,'timeout'); };
+      const done=(fn,bad)=>v=>{ clearTimeout(timer); if(gen===mine) waiting=null; if(bad){ failed=true; wantRun=false; /* a script that loads after a failed click must not start a check */ } showWidget(false); fn(v); };
+      const arm=ms=>{ clearTimeout(timer); timer=setTimeout(done(reject,true),ms,{reason:'timeout'}); };
+      if(token&&Date.now()-tokenAt>TOKEN_MAX_MS){ stopWidget(); }
       if(token){ const t=token; token=''; resolve(t); return; }
-      waiting={ok:done(resolve),fail:done(reject,true),extend:()=>arm(60000)};
+      waiting={ok:done(resolve),fail:(reason,code)=>done(reject,true)({reason:reason,code:code}),extend:()=>arm(60000),retried:false};
       arm(20000);
-      ready.then(null,()=>{ if(gen===mine&&waiting) waiting.fail('script_blocked'); });
+      ready.then(null,e=>{ if(gen===mine&&waiting) waiting.fail(e&&e.render?'error':'script_blocked'); });
+      // A challenge that went interactive while hidden has been using Cloudflare's own clock, so it starts over.
+      if(running&&needsUser){ stopWidget(); }
       start(false);
       reveal();
     });
@@ -1207,11 +1221,11 @@
       if(keyOn){
         if(!token) go.textContent='Checking…';
         try{ headers['X-Turnstile-Token']=await getToken(); }
-        catch(reason){
+        catch(f){
           resetWidget();
           failed=true;
-          track('cage_report_check_failed',{source:'site',reason:reason});
-          message(reason==='script_blocked'?BLOCKED:NOT_FINISHED); out.dataset.blocked='1';
+          track('cage_report_check_failed',Object.assign({source:'site',reason:f.reason},f.code?{code:String(f.code)}:{}));
+          message(f.reason==='script_blocked'?BLOCKED:NOT_FINISHED); out.dataset.blocked='1';
           busy=false; go.textContent='Show my RFQs'; sync();
           return;
         }
